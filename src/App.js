@@ -8,6 +8,7 @@ class App extends Component {
         <p>Chà Mừng Bạn Đã Đến Với ReactJS</p>
         <p>Phiên bản React hiện tại trên máy của bạn là: {React.version}</p>
         <p>Phiên bản React đã được sử dụng để thiết kế môn học: 16.14.0.</p>
+        <p>Update</p>
       </div>
     );
   }
