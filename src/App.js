@@ -2,16 +2,26 @@
 import "./App.css";
 class App extends Component {
 
-  render() {
-    return (
-      <div className="App">
-        <p>Chà Mừng Bạn Đã Đến Với ReactJS</p>
-        <p>Phiên bản React hiện tại trên máy của bạn là: {React.version}</p>
-        <p>Phiên bản React đã được sử dụng để thiết kế môn học: 16.14.0.</p>
-        <p>Update</p>
-      </div>
-    );
-  }
+    render() {
+         return (
+    <div className="App">
+      <header className="App-header">
+        <img src={logo} className="App-logo" alt="logo" />
+        <p>
+          Edit <code>src/App.js</code> and save to reload.
+        </p>
+        <a
+          className="App-link"
+          href="https://reactjs.org"
+          target="_blank"
+          rel="noopener noreferrer"
+        >
+          Learn React
+        </a>
+      </header>
+    </div>
+  );
+    }
 }
 
 export default App;
