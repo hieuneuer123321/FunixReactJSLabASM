@@ -17,7 +17,13 @@ class Staffs extends Component {
     const staffList = this.props.staffs.map((staff) => {
       return (
         <div className="col-12 col-md-6 col-xl-4">
-          <Card key={staff.id} onClick={() => this.onstaffSelect(staff)}>
+          <Card
+            body
+            inverse
+            style={{ backgroundColor: "#333", borderColor: "#333" }}
+            key={staff.id}
+            onClick={() => this.onstaffSelect(staff)}
+          >
             <CardBody>
               <CardTitle>{staff.name}</CardTitle>
             </CardBody>
