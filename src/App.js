@@ -30,16 +30,17 @@ class App extends Component {
     });
   }
   render() {
+    const textStyle = {
+      color: "#FFFFFF",
+      fontSize: "18px",
+    };
     return (
       <div className="App">
-        {/* <Navbar dark color="primary">
-          <div className="container">
-            <NavbarBrand href="/">Ứng Dụng Quản Lý Nhân Sự v1.0</NavbarBrand>
-          </div>
-        </Navbar> */}
         <div>
           <Navbar dark color="primary" light expand="md">
-            <NavbarBrand href="/">Ứng Dụng Quản Lý Nhân Sự v1.0</NavbarBrand>
+            <NavbarBrand style={textStyle}>
+              Ứng Dụng Quản Lý Nhân Sự v1.0
+            </NavbarBrand>
             <NavbarToggler onClick={this.toggle} />
             <Collapse isOpen={this.state.isOpen} navbar>
               <Nav className="ml-auto" navbar>

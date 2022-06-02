@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { Card, CardTitle, CardBody, CardText } from "reactstrap";
+import { Button, ModalFooter, Modal, ModalHeader, ModalBody } from "reactstrap";
 import dateFormat from "dateformat";
 
 class StaffDetail extends Component {
@@ -10,40 +10,41 @@ class StaffDetail extends Component {
     };
   }
   render() {
-    console.log(this.props.StaffDetail);
+    const divStyle = {
+      color: "#00CCFF",
+    };
     if (this.props.StaffDetail != null) {
       return (
-        <div className="col-12 col-md-6 col-xl-4">
-          <Card>
-            <CardBody>
-              <CardTitle>Họ Và Tên: {this.props.StaffDetail.name}</CardTitle>
-              <CardText>
-                Ngày Sinh :
-                {dateFormat(this.props.StaffDetail.doB, "dd/mm/yyyy")}
-              </CardText>
-              <CardText>
-                Ngày Vào Công Ty :
-                {dateFormat(this.props.StaffDetail.startDate, "dd/mm/yyyy")}
-              </CardText>
-              <CardText>
-                Phòng Ban: {this.props.StaffDetail.department.name}
-              </CardText>
-              <CardText>
-                Số Ngày Nghỉ Còn Lại: {this.props.StaffDetail.annualLeave}
-              </CardText>
-              <CardText>
-                Số Ngày Đã Làm Thêm: {this.props.StaffDetail.overTime}
-              </CardText>
-            </CardBody>
-          </Card>
-        </div>
+        <Modal
+          isOpen={this.props.isOpen}
+          toggle={this.props.toggle}
+          className={this.props.classN}
+        >
+          <ModalHeader toggle={this.props.toggle} style={divStyle}>
+            Họ Và Tên: {this.props.StaffDetail.name}
+          </ModalHeader>
+          <ModalBody>
+            Ngày Sinh: {dateFormat(this.props.StaffDetail.doB, "dd/mm/yyyy")}
+            <br />
+            Ngày Vào Công Ty :
+            {dateFormat(this.props.StaffDetail.startDate, "dd/mm/yyyy")}
+            <br />
+            Phòng Ban: {this.props.StaffDetail.department.name}
+            <br />
+            Số Ngày Nghỉ Còn Lại: {this.props.StaffDetail.annualLeave}
+            <br />
+            Số Ngày Đã Làm Thêm: {this.props.StaffDetail.overTime}
+            <br />
+          </ModalBody>
+          <ModalFooter>
+            <Button color="secondary" onClick={this.props.toggle}>
+              Cancel
+            </Button>
+          </ModalFooter>
+        </Modal>
       );
     } else {
-      return (
-        <div className="col-12 col-md-6 col-xl-4">
-          Bấm Vào Tên Nhân Viên Để Xem Thông Tin
-        </div>
-      );
+      return <div></div>;
     }
   }
 }
