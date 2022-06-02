@@ -9,18 +9,25 @@ class Staffs extends Component {
       StaffSelected: null,
     };
   }
+
   onstaffSelect(staff) {
     this.setState({ StaffSelected: staff });
   }
   render() {
     console.log(this.props.staffs);
+    const divStyle = {
+      margin: "10px",
+      backgroundColor: "#333",
+      borderColor: "#333",
+      textAlign: "center",
+    };
     const staffList = this.props.staffs.map((staff) => {
       return (
         <div className="col-12 col-md-6 col-xl-4">
           <Card
             body
             inverse
-            style={{ backgroundColor: "#333", borderColor: "#333" }}
+            style={divStyle}
             key={staff.id}
             onClick={() => this.onstaffSelect(staff)}
           >
