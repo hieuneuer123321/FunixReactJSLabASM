@@ -13,6 +13,7 @@ class StaffDetail extends Component {
     const divStyle = {
       color: "#00CCFF",
     };
+
     if (this.props.StaffDetail != null) {
       return (
         <Modal

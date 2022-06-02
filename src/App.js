@@ -22,12 +22,16 @@ class App extends Component {
     this.state = {
       staffList: STAFFS,
       isOpen: false,
+      collumn: 3,
     };
   }
   toggle() {
     this.setState({
       isOpen: !this.state.isOpen,
     });
+  }
+  setCollumn(number) {
+    this.setState({ collumn: number });
   }
   render() {
     const textStyle = {
@@ -49,18 +53,34 @@ class App extends Component {
                     Số Cột Hiển Thị ( Đối Với decktop )
                   </DropdownToggle>
                   <DropdownMenu right>
-                    <DropdownItem>2 Cột</DropdownItem>
-                    <DropdownItem>3 Cột</DropdownItem>
-                    <DropdownItem>4 Cột</DropdownItem>
-                    <DropdownItem>5 Cột</DropdownItem>
-                    <DropdownItem>6 Cột</DropdownItem>
+                    <DropdownItem
+                      onClick={() => {
+                        this.setCollumn(2);
+                      }}
+                    >
+                      2 Cột
+                    </DropdownItem>
+                    <DropdownItem
+                      onClick={() => {
+                        this.setCollumn(3);
+                      }}
+                    >
+                      3 Cột
+                    </DropdownItem>
+                    <DropdownItem
+                      onClick={() => {
+                        this.setCollumn(6);
+                      }}
+                    >
+                      6 Cột
+                    </DropdownItem>
                   </DropdownMenu>
                 </UncontrolledDropdown>
               </Nav>
             </Collapse>
           </Navbar>
         </div>
-        <StaffsCom staffs={this.state.staffList} />
+        <StaffsCom staffs={this.state.staffList} collumn={this.state.collumn} />
       </div>
     );
   }

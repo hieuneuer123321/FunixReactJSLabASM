@@ -21,19 +21,20 @@ class Staffs extends Component {
     this.setState({ StaffSelected: staff });
   }
   render() {
+    let classColumn = `col-12 col-md-6 col-xl-${12 / this.props.collumn}`;
     const textStyle = {
       color: "#993300",
       margin: "2px",
     };
     const divStyle = {
-      margin: "10px",
+      margin: "10px 0px 10px 0px",
       backgroundColor: "#333",
       borderColor: "#333",
       textAlign: "center",
     };
     const staffList = this.props.staffs.map((staff) => {
       return (
-        <div className="col-12 col-md-6 col-xl-4">
+        <div className={classColumn}>
           <Card
             body
             inverse
@@ -57,7 +58,7 @@ class Staffs extends Component {
     return (
       <div className="container">
         <div className="row" style={textStyle}>
-          <h6> Nhấn Vào Tên Nhân Viên Để Xem Thông Tin</h6>
+          <h5> Nhấn Vào Tên Nhân Viên Để Xem Thông Tin</h5>
         </div>
         <div className="row">{staffList}</div>
       </div>
