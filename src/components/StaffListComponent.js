@@ -28,10 +28,11 @@ class Staffs extends Component {
     };
     const divStyle = {
       margin: "10px 0px 10px 0px",
-      backgroundColor: "#333",
+      backgroundColor: "#9f6060",
       borderColor: "#333",
       textAlign: "center",
     };
+
     const staffList = this.props.staffs.map((staff) => {
       return (
         <div className={classColumn}>

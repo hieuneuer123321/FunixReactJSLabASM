@@ -50,7 +50,7 @@ class App extends Component {
               <Nav className="ml-auto" navbar>
                 <UncontrolledDropdown nav inNavbar>
                   <DropdownToggle nav caret>
-                    Số Cột Hiển Thị ( Đối Với decktop )
+                    Số Cột Hiển Thị ( Đối Với desktop )
                   </DropdownToggle>
                   <DropdownMenu right>
                     <DropdownItem
