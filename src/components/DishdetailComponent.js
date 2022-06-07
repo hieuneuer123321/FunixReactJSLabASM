@@ -5,9 +5,7 @@ import dateFormat from "dateformat";
 class Dishdetail extends Component {
   constructor(props) {
     super(props);
-    this.state = {
-      SelecteDishes: null,
-    };
+    this.state = {};
   }
 
   render() {
@@ -25,37 +23,30 @@ class Dishdetail extends Component {
           );
         } else return <div></div>;
       });
-      console.log(loadComment);
-      console.log(this.props.dish.comments);
       return (
-        <div className="row">
-          <div className="col-12 col-md-5 m-1">
-            <Card>
-              <CardImg
-                top
-                src={this.props.dish.image}
-                alt={this.props.dish.name}
-              />
+        <div className="container">
+          <div className="row">
+            <div className="col-12 col-md-5 m-1">
+              <Card>
+                <CardImg
+                  top
+                  src={this.props.dish.image}
+                  alt={this.props.dish.name}
+                />
+                <CardBody>
+                  <CardTitle>{this.props.dish.name}</CardTitle>
+                  <CardText>{this.props.dish.description}</CardText>
+                </CardBody>
+              </Card>
+            </div>
+            <div className="col-12 col-md-5 m-1">
               <CardBody>
-                <CardTitle>{this.props.dish.name}</CardTitle>
-                <CardText>{this.props.dish.description}</CardText>
+                <h4>Comments</h4>
+                {loadComment}
               </CardBody>
-            </Card>
-          </div>
-          <div className="col-12 col-md-5 m-1">
-            <CardBody>
-              <h4>Comments</h4>
-              {loadComment}
-            </CardBody>
+            </div>
           </div>
         </div>
-        // <Card>
-        //   <CardImg top src={this.props.dish.image} alt={this.props.dish.name} />
-        //   <CardBody>
-        //     <CardTitle>{this.props.dish.name}</CardTitle>
-        //     <CardText>{this.props.dish.description}</CardText>
-        //   </CardBody>
-        // </Card>
       );
     } else return <div></div>;
   }
