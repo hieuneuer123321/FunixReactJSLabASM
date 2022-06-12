@@ -1,15 +1,20 @@
 import React from "react";
-import { Card, CardImg, CardImgOverlay, CardTitle } from "reactstrap";
+import { Card, CardImg } from "reactstrap";
 import { Link } from "react-router-dom";
 
 function RenderStaff({ staff, onClick }) {
+  const styleTextCard = {
+    textAlign: "center",
+    color: "black",
+  };
+  const styleCard = {
+    marginBottom: "10px",
+  };
   return (
-    <Card>
+    <Card style={styleCard}>
       <Link to={`/staff/${staff.id}`}>
         <CardImg width="100%" src={staff.image} alt={staff.name} />
-        <CardImgOverlay>
-          <CardTitle>{staff.name}</CardTitle>
-        </CardImgOverlay>
+        <h6 style={styleTextCard}>{staff.name}</h6>
       </Link>
     </Card>
   );
