@@ -59,7 +59,7 @@ class Staffs extends Component {
     return (
       <div className="container">
         <div className="row" style={textStyle}>
-          <h5> Nhấn Vào Tên Nhân Viên Để Xem Thông Tin</h5>
+          <h5> Nhấn Vào Tên Nhân Viên Để Xem Thông Tin :</h5>
         </div>
         <div className="row">{staffList}</div>
       </div>
