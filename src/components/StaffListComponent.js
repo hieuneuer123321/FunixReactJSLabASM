@@ -1,69 +1,40 @@
-import React, { Component } from "react";
-import { Card, CardTitle, CardBody } from "reactstrap";
-import StaffDetail from "./StaffDetailComponent";
+import React from "react";
+import { Card, CardImg, CardImgOverlay, CardTitle } from "reactstrap";
+import { Link } from "react-router-dom";
 
-class Staffs extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      StaffSelected: null,
-      modal: false,
-    };
-    this.toggle = this.toggle.bind(this);
-  }
-  toggle() {
-    this.setState({
-      modal: !this.state.modal,
-    });
-  }
-  onstaffSelect(staff) {
-    this.toggle();
-    this.setState({ StaffSelected: staff });
-  }
-  render() {
-    let classColumn = `col-12 col-md-6 col-xl-${12 / this.props.collumn}`;
-    const textStyle = {
-      color: "#993300",
-      margin: "2px",
-    };
-    const divStyle = {
-      margin: "10px 0px 10px 0px",
-      backgroundColor: "#9f6060",
-      borderColor: "#333",
-      textAlign: "center",
-    };
+function RenderStaff({ staff, onClick }) {
+  return (
+    <Card>
+      <Link to={`/staff/${staff.id}`}>
+        <CardImg width="100%" src={staff.image} alt={staff.name} />
+        <CardImgOverlay>
+          <CardTitle>{staff.name}</CardTitle>
+        </CardImgOverlay>
+      </Link>
+    </Card>
+  );
+}
 
-    const staffList = this.props.staffs.map((staff) => {
-      return (
-        <div className={classColumn}>
-          <Card
-            body
-            inverse
-            style={divStyle}
-            key={staff.id}
-            onClick={() => this.onstaffSelect(staff)}
-          >
-            <CardBody>
-              <CardTitle>{staff.name}</CardTitle>
-            </CardBody>
-          </Card>
-          <StaffDetail
-            StaffDetail={this.state.StaffSelected}
-            isOpen={this.state.modal}
-            toggle={this.toggle}
-            classN={this.props.className}
-          />
-        </div>
-      );
-    });
+function Staffs(props) {
+  const menu = props.staffs.map((staff) => {
     return (
-      <div className="container">
-        <div className="row" style={textStyle}>
-          <h5> Nhấn Vào Tên Nhân Viên Để Xem Thông Tin :</h5>
-        </div>
-        <div className="row">{staffList}</div>
+      <div className="col-6 col-md-4 col-xl-2" key={staff.id}>
+        <RenderStaff staff={staff} onClick={props.onClick} />
       </div>
     );
-  }
+  });
+
+  return (
+    <div className="container">
+      <div className="row">
+        <div className="col-12">
+          <h3>Nhân Viên</h3>
+          <hr />
+        </div>
+      </div>
+      <div className="row">{menu}</div>
+    </div>
+  );
 }
+
 export default Staffs;
