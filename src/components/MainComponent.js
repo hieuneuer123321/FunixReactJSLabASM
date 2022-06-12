@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import StaffsComponent from "./StaffListComponent";
+import StaffDetail from "./StaffDetailComponent";
 import { STAFFS } from "../shared/staffs";
 import Header from "./HeaderComponent";
 import Footer from "./FooterComponent";
@@ -17,6 +18,17 @@ class Main extends Component {
   }
 
   render() {
+    const RenderStaffDetails = ({ match }) => {
+      return (
+        <StaffDetail
+          staff={
+            this.state.staffs.filter(
+              (staff) => staff.id === parseInt(match.params.id, 10)
+            )[0]
+          }
+        />
+      );
+    };
     return (
       <div>
         <Header />
@@ -25,6 +37,8 @@ class Main extends Component {
             path="/staffs"
             component={() => <StaffsComponent staffs={this.state.staffs} />}
           />
+          <Route path="/staff/:id" component={RenderStaffDetails} />
+          <Route path="/demo/:ab" component={StaffDetail} />
           <Route path="/departments" component={DepartmentComponent} />
           <Route path="/Salary" component={SalaryCompontnent} />
           <Redirect to="/staffs" />
