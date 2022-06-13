@@ -1,10 +1,13 @@
 import React from "react";
 // import { Button, ModalFooter, Modal, ModalHeader, ModalBody } from "reactstrap";
-// import dateFormat from "dateformat";
-import { Breadcrumb, BreadcrumbItem } from "reactstrap";
+import dateFormat from "dateformat";
+import { Breadcrumb, BreadcrumbItem, Media } from "reactstrap";
 import { Link } from "react-router-dom";
 function StaffDetail(props) {
   console.log(props);
+  const styleCardImg = {
+    margin: "0px 20px 10px 0px",
+  };
   return (
     <div className="container">
       <div className="row">
@@ -14,6 +17,32 @@ function StaffDetail(props) {
           </BreadcrumbItem>
           <BreadcrumbItem active>{props.staff.name}</BreadcrumbItem>
         </Breadcrumb>
+      </div>
+      <div className="row">
+        <div className="col-12 col-md-6 col-xl-6">
+          <Media>
+            <Media left>
+              <Media
+                object
+                src={props.staff.image}
+                alt="image"
+                height="220px"
+                style={styleCardImg}
+              />
+            </Media>
+            <Media body>
+              <Media heading>{props.staff.name}</Media>
+              <p> Ngày Sinh: {dateFormat(props.staff.doB, "dd/mm/yyyy")}</p>
+              <p>
+                Ngày Vào Công Ty:{" "}
+                {dateFormat(props.staff.startDate, "dd/mm/yyyy")}
+              </p>
+              <p> Phòng Ban: {props.staff.department.name}</p>
+              <p> Số Ngày Nghỉ Còn Lại: {props.staff.annualLeave}</p>
+              <p> Số Ngày Đã Làm Thêm: {props.staff.overTime}</p>
+            </Media>
+          </Media>
+        </div>
       </div>
     </div>
   );
