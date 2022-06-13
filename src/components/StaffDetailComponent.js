@@ -5,9 +5,7 @@ import { Breadcrumb, BreadcrumbItem, Media } from "reactstrap";
 import { Link } from "react-router-dom";
 function StaffDetail(props) {
   console.log(props);
-  const styleCardImg = {
-    margin: "0px 20px 10px 0px",
-  };
+
   return (
     <div className="container">
       <div className="row">
@@ -19,30 +17,25 @@ function StaffDetail(props) {
         </Breadcrumb>
       </div>
       <div className="row">
-        <div className="col-12 col-md-6 col-xl-6">
-          <Media>
-            <Media left>
-              <Media
-                object
-                src={props.staff.image}
-                alt="image"
-                height="220px"
-                style={styleCardImg}
-              />
-            </Media>
-            <Media body>
-              <Media heading>{props.staff.name}</Media>
-              <p> Ngày Sinh: {dateFormat(props.staff.doB, "dd/mm/yyyy")}</p>
-              <p>
-                Ngày Vào Công Ty:{" "}
-                {dateFormat(props.staff.startDate, "dd/mm/yyyy")}
-              </p>
-              <p> Phòng Ban: {props.staff.department.name}</p>
-              <p> Số Ngày Nghỉ Còn Lại: {props.staff.annualLeave}</p>
-              <p> Số Ngày Đã Làm Thêm: {props.staff.overTime}</p>
-            </Media>
-          </Media>
-        </div>
+        <Media className="col-12 col-md-4 col-xl-3">
+          <Media
+            object
+            src={props.staff.image}
+            alt="image"
+            height="220px"
+            width="100%"
+          />
+        </Media>
+        <Media body className="col-12 col-md-8 col-xl-9">
+          <Media heading>{props.staff.name}</Media>
+          <p> Ngày Sinh: {dateFormat(props.staff.doB, "dd/mm/yyyy")}</p>
+          <p>
+            Ngày Vào Công Ty: {dateFormat(props.staff.startDate, "dd/mm/yyyy")}
+          </p>
+          <p> Phòng Ban: {props.staff.department.name}</p>
+          <p> Số Ngày Nghỉ Còn Lại: {props.staff.annualLeave}</p>
+          <p> Số Ngày Đã Làm Thêm: {props.staff.overTime}</p>
+        </Media>
       </div>
     </div>
   );
