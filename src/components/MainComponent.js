@@ -46,7 +46,10 @@ class Main extends Component {
               <DepartmentComponent department={this.state.department} />
             )}
           />
-          <Route path="/Salary" component={SalaryCompontnent} />
+          <Route
+            path="/Salary"
+            component={() => <SalaryCompontnent salary={this.state.staffs} />}
+          />
           <Redirect to="/staffs" />
         </Switch>
         <Footer />
