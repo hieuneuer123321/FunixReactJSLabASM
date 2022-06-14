@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { Card, CardImg } from "reactstrap";
 import { Link } from "react-router-dom";
 
+// Hàm render các nhân viên từ danh sách
 function RenderStaff({ staff, onClick }) {
   const styleTextCard = {
     textAlign: "center",
@@ -21,7 +22,7 @@ function RenderStaff({ staff, onClick }) {
 }
 
 function Staffs(props) {
-  let [staffList, setStaff] = useState();
+  let [staffList, setStaff] = useState(); // State  sử dụng Hook trong function component
 
   const Search = (staffsList) => {
     const searchText = document.querySelector("#search").value;
@@ -33,9 +34,10 @@ function Staffs(props) {
           <div>
             <h3>Bạn chưa nhập tên nhân viên muốn tìm vào thanh tìm kiếm</h3>
           </div>
-        ))
+        )) // Set State
       );
     } else {
+      // Lọc danh sách dựa vào tên đc người dùng nhập
       const searchStaffList = staffsList.filter((staff) => {
         // toLowerCase() chuyển chuỗi thành chữ thường,
         // .includes(searchText) kiếm tra 1 ký tự có chứ trong chuỗi hay k trả về true or false
@@ -44,6 +46,7 @@ function Staffs(props) {
         );
       });
       console.log(searchStaffList);
+      // Nếu tìm k thấy tên nhân viên nào thỏa điều kiện
       if (searchStaffList.length === 0) {
         setStaff(
           (staffList = (
@@ -53,6 +56,7 @@ function Staffs(props) {
           ))
         );
       } else {
+        // Nếu có nhân viên thỏa đk lọc thì Render ra
         const RenderSearchStaff = searchStaffList.map((staff) => {
           return (
             <div className="col-6 col-md-4 col-xl-2" key={staff.id}>
@@ -67,7 +71,7 @@ function Staffs(props) {
     document.querySelector("#search").value = "";
     return staffList;
   };
-
+  // Render tất cả nhân viên
   const menu = props.staffs.map((staff) => {
     return (
       <div className="col-6 col-md-4 col-xl-2" key={staff.id}>
