@@ -1,5 +1,11 @@
-import React from "react";
+import React, { useState } from "react";
 import { Card, CardTitle, CardText, CardBody } from "reactstrap";
+import {
+  ButtonDropdown,
+  DropdownToggle,
+  DropdownMenu,
+  DropdownItem,
+} from "reactstrap";
 
 const RenderSalary = ({ salaryList }) => {
   const styleCard = {
@@ -38,9 +44,27 @@ const RenderSalary = ({ salaryList }) => {
 
 export default function SalaryCompontnent(props) {
   console.log(props.salary);
-
+  let [dropdownOpen, setDropdownOpen] = useState(false);
+  const toggle = () => {
+    setDropdownOpen((dropdownOpen = !dropdownOpen));
+  };
   return (
     <div className="container">
+      <div className="row" style={{ margin: "10px 0px" }}>
+        <ButtonDropdown isOpen={dropdownOpen} toggle={toggle}>
+          <DropdownToggle caret>Sắp Xếp Theo Lương Nhân Viên</DropdownToggle>
+          <DropdownMenu>
+            <DropdownItem>
+              Lương Tăng Dần{" "}
+              <i class="fa fa-sort-numeric-asc" aria-hidden="true"></i>
+            </DropdownItem>
+            <DropdownItem>
+              Lương Giảm Dần{" "}
+              <i class="fa fa-sort-numeric-desc" aria-hidden="true"></i>
+            </DropdownItem>
+          </DropdownMenu>
+        </ButtonDropdown>
+      </div>
       <div className="row">
         <RenderSalary salaryList={props.salary} />
       </div>

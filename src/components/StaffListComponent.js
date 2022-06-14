@@ -28,8 +28,13 @@ function Staffs(props) {
     console.log(searchText);
     console.log(staffsList);
     if (searchText === "") {
-      alert("Bạn chưa nhập tên nhân viên muốn tìm");
-      setStaff((staffList = <div></div>));
+      setStaff(
+        (staffList = (
+          <div>
+            <h3>Bạn chưa nhập tên nhân viên muốn tìm vào thanh tìm kiếm</h3>
+          </div>
+        ))
+      );
     } else {
       const searchStaffList = staffsList.filter((staff) => {
         // toLowerCase() chuyển chuỗi thành chữ thường,
@@ -40,8 +45,13 @@ function Staffs(props) {
       });
       console.log(searchStaffList);
       if (searchStaffList.length === 0) {
-        setStaff((staffList = <div></div>));
-        alert("Tên Nhân Viên Bạn Nhập K Có Trong Danh Sách");
+        setStaff(
+          (staffList = (
+            <div>
+              <h3>Nhân Viên {searchText} Không Có Trong Danh Sách</h3>
+            </div>
+          ))
+        );
       } else {
         const RenderSearchStaff = searchStaffList.map((staff) => {
           return (
