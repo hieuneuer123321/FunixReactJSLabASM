@@ -22,12 +22,10 @@ function RenderStaff({ staff, onClick }) {
 }
 
 function Staffs(props) {
+  // staffList là giá trị trả về khi tìm kiếm
   let [staffList, setStaff] = useState(); // State  sử dụng Hook trong function component
-
   const Search = (staffsList) => {
     const searchText = document.querySelector("#search").value;
-    console.log(searchText);
-    console.log(staffsList);
     if (searchText === "") {
       setStaff(
         (staffList = (
@@ -45,7 +43,6 @@ function Staffs(props) {
           staff.name.toLowerCase().includes(searchText.toLowerCase()) === true
         );
       });
-      console.log(searchStaffList);
       // Nếu tìm k thấy tên nhân viên nào thỏa điều kiện
       if (searchStaffList.length === 0) {
         setStaff(
@@ -65,7 +62,6 @@ function Staffs(props) {
           );
         });
         setStaff((staffList = RenderSearchStaff));
-        console.log(RenderSearchStaff);
       }
     }
     document.querySelector("#search").value = "";

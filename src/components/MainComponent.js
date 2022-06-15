@@ -39,7 +39,6 @@ class Main extends Component {
             component={() => <StaffsComponent staffs={this.state.staffs} />}
           />
           <Route path="/staff/:id" component={RenderStaffDetails} />
-          <Route path="/demo/:ab" component={StaffDetail} />
           <Route
             path="/departments"
             component={() => (
