@@ -22,93 +22,72 @@ function RenderStaff({ staff, onClick }) {
 }
 
 function AddStaff() {
-  alert("test");
+  alert("ass");
 }
 
 function Staffs(props) {
-  // staffList là giá trị trả về khi tìm kiếm
-  let [staffList, setStaff] = useState(); // State  sử dụng Hook trong function component
-
-  const Search = (staffsList) => {
-    const searchText = document.querySelector("#search").value;
-    if (searchText === "") {
-      setStaff(
-        (staffList = (
-          <div>
-            <h3>Bạn chưa nhập tên nhân viên muốn tìm vào thanh tìm kiếm</h3>
-          </div>
-        )) // Set State
-      );
-    } else {
-      // Lọc danh sách dựa vào tên đc người dùng nhập
-      const searchStaffList = staffsList.filter((staff) => {
-        // toLowerCase() chuyển chuỗi thành chữ thường,
-        // .includes(searchText) kiếm tra 1 ký tự có chứ trong chuỗi hay k trả về true or false
-        return (
-          staff.name.toLowerCase().includes(searchText.toLowerCase()) === true
-        );
-      });
-      // Nếu tìm k thấy tên nhân viên nào thỏa điều kiện
-      if (searchStaffList.length === 0) {
-        setStaff(
-          (staffList = (
-            <div>
-              <h3>Nhân Viên {searchText} Không Có Trong Danh Sách</h3>
-            </div>
-          ))
-        );
-      } else {
-        // Nếu có nhân viên thỏa đk lọc thì Render ra
-        const RenderSearchStaff = searchStaffList.map((staff) => {
-          return (
-            <div className="col-6 col-md-4 col-xl-2" key={staff.id}>
-              <RenderStaff staff={staff} onClick={props.onClick} />
-            </div>
-          );
-        });
-        setStaff((staffList = RenderSearchStaff));
-      }
-    }
-    document.querySelector("#search").value = "";
-    return staffList;
+  let [nameFind, setNameFind] = useState("");
+  console.log(nameFind);
+  const search = (event) => {
+    event.preventDefault();
+    const name = event.target.nameStaff.value;
+    setNameFind((nameFind = name));
   };
-  // Render tất cả nhân viên
-
-  const menu = props.staffs.map((staff) => {
-    return (
-      <div className="col-6 col-md-4 col-xl-2" key={staff.id}>
-        <RenderStaff staff={staff} onClick={props.onClick} />
-      </div>
-    );
-  });
+  const staffList = props.staffs
+    .filter((staff) => {
+      if (nameFind === "") return staff;
+      else if (staff.name.toLowerCase().includes(nameFind.toLowerCase()))
+        return staff;
+      return 0;
+    })
+    .map((staff) => {
+      return (
+        <div className="col-6 col-md-4 col-xl-2" key={staff.id}>
+          <RenderStaff staff={staff} onClick={props.onClick} />
+        </div>
+      );
+    });
 
   return (
     <div className="container">
       <div className="row">
-        <div className="col-12">
-          <h3 style={{ display: "inline-block", marginRight: "100px" }}>
-            Nhân Viên
-          </h3>
-          <button
-            className="btn btn-primary"
-            onClick={() => {
-              AddStaff();
-            }}
-          >
-            <i className="fa fa-plus" aria-hidden="true"></i>
-          </button>
-          <div className="box" style={{ marginTop: "5px" }}>
-            <div className="container-4">
-              <input type="search" id="search" placeholder="Search..." />
-              <button className="icon" onClick={() => Search(props.staffs)}>
-                <i className="fa fa-search"></i>
+        <div className="col-12 col-md-6 mt-3">
+          <div className="row">
+            <div className="col-10 col-md-10 ">
+              <h3>Nhân Viên</h3>
+            </div>
+            <div className="col-2 col-auto ">
+              <button
+                className="btn btn-primary"
+                outline
+                onClick={() => {
+                  AddStaff();
+                }}
+              >
+                <span className="fa fa-plus fa-lg" aria-hidden="true"></span>
               </button>
             </div>
           </div>
-          <hr />
+        </div>
+        <div className="col-12 col-md-6 mt-3">
+          <form onSubmit={search} className="form-group row">
+            <div className="col-8 col-md-8">
+              <input
+                type="text"
+                className="form-control"
+                placeholder="Tìm Kiếm Nhân Viên ..."
+                name="nameStaff"
+              />
+            </div>
+            <div className="col-4 col-md-4">
+              <button type="submit" className="btn btn-success">
+                Tìm Kiếm
+              </button>
+            </div>
+          </form>
         </div>
       </div>
-      <div className="row">{staffList ? staffList : menu}</div>
+      <div className="row">{staffList}</div>
     </div>
   );
 }
