@@ -299,14 +299,14 @@ class Staffs extends Component {
                         className="control-group"
                         style={{ marginBottom: "20px" }}
                       >
-                        <Label htmlFor="overtime" md={4}>
+                        <Label htmlFor="overTime" md={4}>
                           Số Ngày Đã Làm Thêm
                         </Label>
                         <Col md={8}>
                           <Input
                             type="number"
-                            name="overtime"
-                            id="overtime"
+                            name="overTime"
+                            id="overTime"
                             className="form-control"
                             placeholder="0"
                             onChange={this.handleInputChange}

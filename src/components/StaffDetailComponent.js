@@ -30,7 +30,7 @@ function StaffDetail(props) {
           <p>
             Ngày Vào Công Ty: {dateFormat(props.staff.startDate, "dd/mm/yyyy")}
           </p>
-          <p> Phòng Ban: {props.staff.department.name}</p>
+          <p> Phòng Ban: {props.staff.department}</p>
           <p> Số Ngày Nghỉ Còn Lại: {props.staff.annualLeave}</p>
           <p> Số Ngày Đã Làm Thêm: {props.staff.overTime}</p>
         </Media>
