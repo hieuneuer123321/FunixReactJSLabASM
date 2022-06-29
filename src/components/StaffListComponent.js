@@ -59,9 +59,17 @@ class Staffs extends Component {
     });
   }
   handleSubmit(event) {
-    console.log("Current State is: " + JSON.stringify(this.state));
-    alert("Current State is: " + JSON.stringify(this.state));
-    event.preventDefault();
+    const newStaff = {
+      name: this.state.name,
+      doB: this.state.doB,
+      salaryScale: this.state.salaryScale,
+      startDate: this.state.startDate,
+      department: this.state.department,
+      annualLeave: this.state.annualLeave,
+      overTime: this.state.overTime,
+      image: this.state.image,
+    };
+    this.props.addStaff(newStaff);
   }
   search(event) {
     event.preventDefault();
@@ -95,6 +103,7 @@ class Staffs extends Component {
     return errors;
   }
   render() {
+    console.log(this.props.staffs);
     const errors = this.validate(
       this.state.name,
       this.state.doB,
