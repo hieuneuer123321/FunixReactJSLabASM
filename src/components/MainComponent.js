@@ -22,21 +22,10 @@ class Main extends Component {
   }
   addStaff(staff) {
     console.log(staff);
-    // const id = Math.floor(Math.random() * 10000 + 1);
-    // const newStaff = { id, ...staff };
     this.setState({ staffs: [staff, ...this.state.staffs] });
   }
 
   render() {
-    // const setItemLocalStorage = (key, value) => {
-    //   if (JSON.parse(localStorage.getItem("StaffList"))) {
-    //     localStorage.removeItem("StaffList");
-    //     localStorage.setItem(key, JSON.stringify(value));
-    //   } else {
-    //     localStorage.setItem(key, JSON.stringify(value));
-    //   }
-    // };
-    // setItemLocalStorage("StaffList", this.state.staffs);
     const RenderStaffDetails = ({ match }) => {
       return (
         <StaffDetail
