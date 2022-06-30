@@ -13,21 +13,30 @@ class Main extends Component {
     super(props);
 
     this.state = {
-      staffs: STAFFS,
+      staffs: JSON.parse(localStorage.getItem("StaffList"))
+        ? JSON.parse(localStorage.getItem("StaffList"))
+        : STAFFS,
       department: DEPARTMENTS,
     };
     this.addStaff = this.addStaff.bind(this);
   }
   addStaff(staff) {
     console.log(staff);
-    const id = Math.floor(Math.random() * 10000 + 1);
-    const newStaff = { id, ...staff };
-
-    this.setState({ staffs: [newStaff, ...this.state.staffs] });
-    console.log(newStaff);
-    console.log(this.state.staffs);
+    // const id = Math.floor(Math.random() * 10000 + 1);
+    // const newStaff = { id, ...staff };
+    this.setState({ staffs: [staff, ...this.state.staffs] });
   }
+
   render() {
+    // const setItemLocalStorage = (key, value) => {
+    //   if (JSON.parse(localStorage.getItem("StaffList"))) {
+    //     localStorage.removeItem("StaffList");
+    //     localStorage.setItem(key, JSON.stringify(value));
+    //   } else {
+    //     localStorage.setItem(key, JSON.stringify(value));
+    //   }
+    // };
+    // setItemLocalStorage("StaffList", this.state.staffs);
     const RenderStaffDetails = ({ match }) => {
       return (
         <StaffDetail
