@@ -38,7 +38,6 @@ class Staffs extends Component {
       },
       nameFind: "",
       modal: false,
-      staffList: [],
     };
     this.toggle = this.toggle.bind(this);
     this.search = this.search.bind(this);
@@ -61,7 +60,6 @@ class Staffs extends Component {
   }
   handleSubmit(event) {
     const id = Math.floor(Math.random() * 10000 + 1);
-    // const newStaff2 = { id, ...staff };
     const newStaff = {
       id: id,
       name: this.state.name,
@@ -73,10 +71,6 @@ class Staffs extends Component {
       overTime: this.state.overTime,
       image: this.state.image,
     };
-    // const setItemLocalStorage = (key, value) => {
-    //   localStorage.setItem(key, JSON.stringify(value));
-    // };
-    // setItemLocalStorage("StaffList", newStaff);
     localStorage.setItem(
       "StaffList",
       JSON.stringify([newStaff, ...this.props.staffs])
@@ -116,7 +110,6 @@ class Staffs extends Component {
     return errors;
   }
   render() {
-    // localStorage.setItem("StaffList", JSON.stringify(this.props.staffs));
     console.log(this.props.staffs);
     const errors = this.validate(
       this.state.name,
@@ -158,25 +151,6 @@ class Staffs extends Component {
         );
       });
 
-    // const StaffListPropsOrLocal = JSON.parse(localStorage.getItem("StaffList"))
-    //   ? JSON.parse(localStorage.getItem("StaffList"))
-    //   : this.props.staffs;
-    // const StaffListLocalStorage = JSON.parse(localStorage.getItem("StaffList"));
-
-    // const staffList = StaffListLocalStorage.filter((staff) => {
-    //   if (this.state.nameFind === "") return staff;
-    //   else if (
-    //     staff.name.toLowerCase().includes(this.state.nameFind.toLowerCase())
-    //   )
-    //     return staff;
-    //   return 0;
-    // }).map((staff) => {
-    //   return (
-    //     <div className="col-6 col-md-4 col-xl-2" key={staff.id}>
-    //       <RenderStaff staff={staff} onClick={this.props.onClick} />
-    //     </div>
-    //   );
-    // });
     return (
       <div className="container">
         <div className="row">
