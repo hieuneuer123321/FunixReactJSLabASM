@@ -11,6 +11,7 @@ import {
   Row,
   Col,
   FormFeedback,
+  Button,
 } from "reactstrap";
 import { Link } from "react-router-dom";
 
@@ -44,6 +45,7 @@ class Staffs extends Component {
     this.handleInputChange = this.handleInputChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
     this.handleBlur = this.handleBlur.bind(this);
+    this.handleSubmitError = this.handleSubmitError.bind(this);
   }
 
   handleBlur = (field) => (event) => {
@@ -57,6 +59,9 @@ class Staffs extends Component {
     this.setState({
       [name]: value,
     });
+  }
+  handleSubmitError(event) {
+    event.preventDefault();
   }
   handleSubmit(event) {
     const id = Math.floor(Math.random() * 10000 + 1);
@@ -75,7 +80,7 @@ class Staffs extends Component {
       "StaffList",
       JSON.stringify([newStaff, ...this.props.staffs])
     );
-    this.setState("staffList", newStaff);
+
     this.props.addStaff(newStaff);
   }
   search(event) {
@@ -172,7 +177,11 @@ class Staffs extends Component {
                   <ModalBody>
                     <Form
                       className="form-group-row"
-                      onSubmit={this.handleSubmit}
+                      onSubmit={
+                        errors.name || errors.doB || errors.startDate
+                          ? this.handleSubmitError
+                          : this.handleSubmit
+                      }
                     >
                       <Row
                         className="control-group"
@@ -193,6 +202,7 @@ class Staffs extends Component {
                             onBlur={this.handleBlur("name")}
                             valid={errors.name === ""}
                             invalid={errors.name !== ""}
+                            required
                           />
                           <FormFeedback>{errors.name}</FormFeedback>
                         </Col>
@@ -216,7 +226,8 @@ class Staffs extends Component {
                             onBlur={this.handleBlur("doB")}
                             valid={errors.doB === ""}
                             invalid={errors.doB !== ""}
-                          />{" "}
+                            required
+                          />
                           <FormFeedback>{errors.doB}</FormFeedback>
                         </Col>
                       </Row>
@@ -239,7 +250,8 @@ class Staffs extends Component {
                             onBlur={this.handleBlur("startDate")}
                             valid={errors.startDate === ""}
                             invalid={errors.startDate !== ""}
-                          />{" "}
+                            required
+                          />
                           <FormFeedback>{errors.startDate}</FormFeedback>
                         </Col>
                       </Row>
@@ -322,9 +334,9 @@ class Staffs extends Component {
                           />
                         </Col>
                       </Row>
-                      <button type="submit" className="btn btn-success">
+                      <Button type="submit" className="btn btn-success">
                         Thêm
-                      </button>
+                      </Button>
                     </Form>
                   </ModalBody>
                 </Modal>
@@ -342,9 +354,9 @@ class Staffs extends Component {
                 />
               </div>
               <div className="col-4 col-md-4">
-                <button type="submit" className="btn btn-success">
+                <Button type="submit" className="btn btn-success">
                   Tìm Kiếm
-                </button>
+                </Button>
               </div>
             </form>
           </div>
