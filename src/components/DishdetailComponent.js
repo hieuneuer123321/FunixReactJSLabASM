@@ -17,6 +17,7 @@ import {
   ModalHeader,
 } from "reactstrap";
 import { Link } from "react-router-dom";
+import LoadingComponent from "./LoadingComponent";
 // import CommentForm from "./CommentForm";
 import { Control, LocalForm, Errors } from "react-redux-form";
 const maxLength = (len) => (val) => !val || val.length <= len;
@@ -178,9 +179,23 @@ const DishDetail = (props) => {
   const toggle = () => {
     setModal((modal = !modal)); // setState cho modal
   };
-  console.log(props.dish);
-
-  if (props.dish != null) {
+  if (props.isLoading) {
+    return (
+      <div className="container">
+        <div className="row">
+          <LoadingComponent />
+        </div>
+      </div>
+    );
+  } else if (props.errMess) {
+    return (
+      <div className="container">
+        <div className="row">
+          <h4>{props.errMess}</h4>
+        </div>
+      </div>
+    );
+  } else if (props.dish != null) {
     return (
       <div className="container">
         <div className="row">
