@@ -36,7 +36,7 @@ function RenderDish({ dish }) {
   );
 }
 
-function RenderComments({ comments, modal, setModal, addComment, dishId }) {
+function RenderComments({ comments, modal, setModal, postComment, dishId }) {
   if (comments.length > 0) {
     const loadComment = comments.map((disher) => {
       return (
@@ -59,7 +59,7 @@ function RenderComments({ comments, modal, setModal, addComment, dishId }) {
         <CommentForm
           modal={modal}
           toggle={setModal((modal = !modal))}
-          addComment={addComment}
+          postComment={postComment}
           dishId={dishId}
         />
       </CardBody>
@@ -78,13 +78,13 @@ class CommentForm extends Component {
     this.props.toggle();
     // console.log("Comment is: " + JSON.stringify(value));
     // alert("Comment is: " + JSON.stringify(value));
-    this.props.addComment(
+    this.props.postComment(
       this.props.dishId,
-      value.rating ? 1 : value.rating,
+      value.rating ? value.rating : "1",
       value.author,
       value.comment
     );
-    console.log(this.props.addComment);
+    console.log(this.props.postComment);
   }
   render() {
     return (
@@ -221,7 +221,7 @@ const DishDetail = (props) => {
               comments={props.comments}
               modal={modal}
               setModal={() => toggle}
-              addComment={props.addComment}
+              postComment={props.postComment}
               dishId={props.dish.id}
             />
           </div>
