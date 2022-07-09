@@ -46,6 +46,7 @@ class Main extends Component {
   }
   render() {
     const RenderStaffDetails = ({ match }) => {
+      console.log(this.props.staffs.staffs);
       return (
         <StaffDetail
           staff={
