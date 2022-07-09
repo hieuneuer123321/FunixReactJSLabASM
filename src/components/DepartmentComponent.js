@@ -1,5 +1,6 @@
 import React from "react";
 import { Card, CardTitle, CardText, CardBody } from "reactstrap";
+import LoadingComponent from "./LoadingComponent";
 
 function RenderDepartment({ departmentList }) {
   const styleCard = {
@@ -20,12 +21,17 @@ function RenderDepartment({ departmentList }) {
 
 export default function DepartmentComponent(props) {
   console.log(props);
-
-  return (
-    <div className="container">
-      <div className="row">
-        <RenderDepartment departmentList={props.department} />
+  if (props.isLoading) {
+    return <LoadingComponent />;
+  } else if (props.errorMessage) {
+    return <h4>{props.errorMessage}</h4>;
+  } else {
+    return (
+      <div className="container">
+        <div className="row">
+          <RenderDepartment departmentList={props.department} />
+        </div>
       </div>
-    </div>
-  );
+    );
+  }
 }

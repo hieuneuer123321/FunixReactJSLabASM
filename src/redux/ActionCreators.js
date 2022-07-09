@@ -37,3 +37,44 @@ export const fetchStaffs = () => (dispatch) => {
     .catch((err) => dispatch(staffsFailed(err.message)));
 };
 ////////////////////////////////
+export const addDepartments = (departments) => ({
+  type: ActionTypes.ADD_DEPARTMENTS,
+  payload: departments,
+});
+export const departmentsLoading = () => ({
+  type: ActionTypes.DEPARTMENTS_LOADING,
+});
+export const departmentsFailed = (errorMessage) => ({
+  type: ActionTypes.DEPARTMENTS_FAILED,
+  payload: errorMessage,
+});
+export const fetchDepartments = () => (dispatch) => {
+  dispatch(departmentsLoading(true));
+  return fetch(baseUrl + "departments")
+    .then(
+      (response) => {
+        if (response.ok) return response;
+        else {
+          const errorMessage = new Error(
+            `Error ${response.status} : ${response.statusText}`
+          );
+          errorMessage.response = response;
+          throw errorMessage;
+        }
+      },
+      (err) => {
+        const errorMessage = new Error(err.message);
+        throw errorMessage;
+      }
+    )
+    .then((response) => {
+      return response.json();
+    })
+    .then((departments) => {
+      return dispatch(addDepartments(departments));
+    })
+    .catch((err) => {
+      return dispatch(departmentsFailed(err.message));
+    });
+};
+////////////////////////////////

@@ -8,7 +8,7 @@ import DepartmentComponent from "./DepartmentComponent";
 import SalaryCompontnent from "./SalaryCompontnent";
 import { Switch, Route, Redirect, withRouter } from "react-router-dom";
 import { connect } from "react-redux";
-import { fetchStaffs } from "../redux/ActionCreators";
+import { fetchStaffs, fetchDepartments } from "../redux/ActionCreators";
 
 const mapStateToProps = (state) => ({
   staffs: state.staffs,
@@ -17,6 +17,7 @@ const mapStateToProps = (state) => ({
 });
 const mapDispatchToProps = (dispatch) => ({
   fetchStaffs: () => dispatch(fetchStaffs()),
+  fetchDepartments: () => dispatch(fetchDepartments()),
 });
 class Main extends Component {
   constructor(props) {
@@ -35,6 +36,7 @@ class Main extends Component {
   }
   componentDidMount() {
     this.props.fetchStaffs();
+    this.props.fetchDepartments();
   }
   render() {
     const RenderStaffDetails = ({ match }) => {
@@ -69,7 +71,11 @@ class Main extends Component {
           <Route
             path="/departments"
             component={() => (
-              <DepartmentComponent department={this.props.departments} />
+              <DepartmentComponent
+                department={this.props.departments.departments}
+                isLoading={this.props.departments.isLoading}
+                errorMessage={this.props.departments.errorMessage}
+              />
             )}
           />
           <Route
