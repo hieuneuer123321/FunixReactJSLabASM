@@ -78,3 +78,40 @@ export const fetchDepartments = () => (dispatch) => {
     });
 };
 ////////////////////////////////
+export const salaryLoading = () => ({
+  type: ActionTypes.SALARY_LOADING,
+});
+export const addSalary = (salary) => ({
+  type: ActionTypes.ADD_SALARY,
+  payload: salary,
+});
+export const salaryFailed = (errorMessage) => ({
+  type: ActionTypes.SALARY_FAILED,
+  payload: errorMessage,
+});
+export const fetchSalary = () => (dispatch) => {
+  dispatch(salaryLoading(true));
+  return fetch(baseUrl + "staffsSalary")
+    .then(
+      (response) => {
+        if (response.ok) return response;
+        else {
+          const errorMessage = new Error(
+            `Error ${response.status} : ${response.statusText}`
+          );
+          throw errorMessage;
+        }
+      },
+      (err) => {
+        const errorMessage = new Error(err.message);
+        throw errorMessage;
+      }
+    )
+    .then((response) => response.json())
+    .then((salary) => {
+      return dispatch(addSalary(salary));
+    })
+    .catch((err) => {
+      return dispatch(salaryFailed(err.message));
+    });
+};

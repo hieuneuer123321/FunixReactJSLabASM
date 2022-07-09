@@ -8,7 +8,11 @@ import DepartmentComponent from "./DepartmentComponent";
 import SalaryCompontnent from "./SalaryCompontnent";
 import { Switch, Route, Redirect, withRouter } from "react-router-dom";
 import { connect } from "react-redux";
-import { fetchStaffs, fetchDepartments } from "../redux/ActionCreators";
+import {
+  fetchStaffs,
+  fetchDepartments,
+  fetchSalary,
+} from "../redux/ActionCreators";
 
 const mapStateToProps = (state) => ({
   staffs: state.staffs,
@@ -18,6 +22,7 @@ const mapStateToProps = (state) => ({
 const mapDispatchToProps = (dispatch) => ({
   fetchStaffs: () => dispatch(fetchStaffs()),
   fetchDepartments: () => dispatch(fetchDepartments()),
+  fetchSalary: () => dispatch(fetchSalary()),
 });
 class Main extends Component {
   constructor(props) {
@@ -37,6 +42,7 @@ class Main extends Component {
   componentDidMount() {
     this.props.fetchStaffs();
     this.props.fetchDepartments();
+    this.props.fetchSalary();
   }
   render() {
     const RenderStaffDetails = ({ match }) => {
@@ -81,7 +87,11 @@ class Main extends Component {
           <Route
             path="/Salary"
             component={() => (
-              <SalaryCompontnent salary={this.props.staffs.staffs} />
+              <SalaryCompontnent
+                salary={this.props.salary.salary}
+                isLoading={this.props.salary.isLoading}
+                errorMessage={this.props.salary.errorMessage}
+              />
             )}
           />
           <Redirect to="/staffs" />
