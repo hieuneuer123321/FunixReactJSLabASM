@@ -35,9 +35,7 @@ const mapDispatchToProps = (dispatch) => ({
     departmentId,
     startDate,
     annualLeave,
-    overTime,
-    images = "/assets/images/alberto.png",
-    salary = 3000
+    overTime
   ) =>
     dispatch(
       postAddStaff(
@@ -47,16 +45,14 @@ const mapDispatchToProps = (dispatch) => ({
         departmentId,
         startDate,
         annualLeave,
-        overTime,
-        images,
-        salary
+        overTime
       )
     ),
 });
 class Main extends Component {
   constructor(props) {
     super(props);
-    this.state = { departmentsId: "Dept03" };
+    this.state = {};
     // this.addStaff = this.addStaff.bind(this);
   }
   // addStaff(staff) {
@@ -103,7 +99,7 @@ class Main extends Component {
             path="/staffs"
             component={() => (
               <StaffsComponent
-                onAddStaff={this.props.addStaff}
+                postAddStaff={this.props.postAddStaff}
                 staffs={this.props.staffs.staffs}
                 isLoading={this.props.staffs.isLoading}
                 errorMessage={this.props.staffs.errorMessage}

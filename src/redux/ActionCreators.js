@@ -168,7 +168,7 @@ export const postAddStaff =
     startDate,
     annualLeave,
     overTime,
-    images = "/assets/images/alberto.png",
+    image = "/assets/images/alberto.png",
     salary = 3000
   ) =>
   (dispatch) => {
@@ -180,7 +180,7 @@ export const postAddStaff =
       departmentId: departmentId,
       annualLeave: annualLeave,
       overTime: overTime,
-      images: images,
+      image: image,
       salary: salary,
     };
     return fetch(baseUrl + "staffs", {
@@ -205,6 +205,10 @@ export const postAddStaff =
         }
       )
       .then((response) => response.json())
-      .then((data) => dispatch(addStaff(data)))
+      .then((data) => {
+        console.log(newStaff);
+        console.log(data);
+        return dispatch(addStaff(data));
+      })
       .catch((error) => dispatch(staffsFailed(error.message)));
   };

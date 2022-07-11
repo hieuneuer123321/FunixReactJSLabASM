@@ -71,7 +71,8 @@ class Staffs extends Component {
     if (!this.state.doB || !this.state.startDate) {
       this.setState({ touched: { doB: true, startDate: true } });
     } else {
-      this.props.addStaff(
+      console.log(newStaff);
+      this.props.postAddStaff(
         newStaff.name,
         newStaff.doB,
         newStaff.salaryScale,
@@ -79,7 +80,7 @@ class Staffs extends Component {
         newStaff.startDate,
         newStaff.annualLeave,
         newStaff.overTime,
-        newStaff.images,
+        newStaff.image,
         newStaff.salary
       );
     }
