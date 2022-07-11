@@ -6,13 +6,10 @@ import React, { Component } from "react";
 export default class StaffOfDepartmentComponent extends Component {
   constructor(props) {
     super(props);
-    this.state = {
-      staffsOfDepartment: [],
-    };
+    this.state = {};
   }
 
   render() {
-    console.log(this.props.staffOfDepartment);
     return <div className="">{this.props.departmentsId}</div>;
     // if (this.props.isLoading) {
     //   return <LoadingComponent />;

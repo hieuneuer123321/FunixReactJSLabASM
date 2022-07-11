@@ -47,12 +47,7 @@ class Main extends Component {
       return (
         <StaffOfDepartmentComponent
           departmentsId={match.params.id}
-          staffOfDepartment={this.props.fetchStaffsOfDepartment(
-            match.params.id
-          )}
-          staff={this.props.staffs.staffs.filter(
-            (staff) => staff.departmentId === parseInt(match.params.id, 10)
-          )}
+          staffOfDepartment={this.props.fetchStaffsOfDepartment}
         />
       );
     };
