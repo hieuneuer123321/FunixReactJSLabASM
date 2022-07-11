@@ -154,3 +154,57 @@ export const fetchStaffsOfDepartment = (departmentId) => (dispatch) => {
     })
     .catch((err) => dispatch(staffsOfDepartmentFailed(err.message)));
 };
+////////////////////////////////
+export const addStaff = (staff) => ({
+  type: ActionTypes.ADD_STAFF,
+  payload: staff,
+});
+export const postAddStaff =
+  (
+    name,
+    doB,
+    salaryScale,
+    departmentId,
+    startDate,
+    annualLeave,
+    overTime,
+    images = "/assets/images/alberto.png",
+    salary = 3000
+  ) =>
+  (dispatch) => {
+    const newStaff = {
+      name: name,
+      doB: doB,
+      salaryScale: salaryScale,
+      startDate: startDate,
+      departmentId: departmentId,
+      annualLeave: annualLeave,
+      overTime: overTime,
+      images: images,
+      salary: salary,
+    };
+    return fetch(baseUrl + "staffs", {
+      method: "POST",
+      body: JSON.stringify(newStaff),
+      headers: { "Content-Type": "application/json" },
+      credentials: "same-origin",
+    })
+      .then(
+        (response) => {
+          if (response.ok) return response;
+          else {
+            const errorMessage = new Error(
+              `Error ${response.status} : ${response.statusText}`
+            );
+            throw errorMessage;
+          }
+        },
+        (errorMessage) => {
+          const error = new Error(errorMessage.message);
+          throw error;
+        }
+      )
+      .then((response) => response.json())
+      .then((data) => dispatch(addStaff(data)))
+      .catch((error) => dispatch(staffsFailed(error.message)));
+  };

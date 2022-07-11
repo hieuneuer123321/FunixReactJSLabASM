@@ -14,6 +14,7 @@ import {
   fetchDepartments,
   fetchSalary,
   fetchStaffsOfDepartment,
+  postAddStaff,
 } from "../redux/ActionCreators";
 
 const mapStateToProps = (state) => ({
@@ -27,16 +28,40 @@ const mapDispatchToProps = (dispatch) => ({
   fetchSalary: () => dispatch(fetchSalary()),
   fetchStaffsOfDepartment: (departmentId) =>
     dispatch(fetchStaffsOfDepartment(departmentId)),
+  postAddStaff: (
+    name,
+    doB,
+    salaryScale,
+    departmentId,
+    startDate,
+    annualLeave,
+    overTime,
+    images = "/assets/images/alberto.png",
+    salary = 3000
+  ) =>
+    dispatch(
+      postAddStaff(
+        name,
+        doB,
+        salaryScale,
+        departmentId,
+        startDate,
+        annualLeave,
+        overTime,
+        images,
+        salary
+      )
+    ),
 });
 class Main extends Component {
   constructor(props) {
     super(props);
     this.state = { departmentsId: "Dept03" };
-    this.addStaff = this.addStaff.bind(this);
+    // this.addStaff = this.addStaff.bind(this);
   }
-  addStaff(staff) {
-    console.log(staff);
-  }
+  // addStaff(staff) {
+  //   console.log(staff);
+  // }
   componentDidMount() {
     this.props.fetchStaffs();
     this.props.fetchDepartments();
@@ -78,7 +103,7 @@ class Main extends Component {
             path="/staffs"
             component={() => (
               <StaffsComponent
-                addStaff={this.addStaff}
+                onAddStaff={this.props.addStaff}
                 staffs={this.props.staffs.staffs}
                 isLoading={this.props.staffs.isLoading}
                 errorMessage={this.props.staffs.errorMessage}

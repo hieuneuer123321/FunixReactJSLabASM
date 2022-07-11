@@ -56,6 +56,12 @@ export const Staffs = (
         staffs: action.payload,
       };
     }
+    case ActionTypes.ADD_STAFF: {
+      return {
+        ...state,
+        staffs: state.staffs.concat(action.payload),
+      };
+    }
     default:
       return state;
   }

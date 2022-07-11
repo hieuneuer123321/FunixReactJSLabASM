@@ -55,26 +55,33 @@ class Staffs extends Component {
     });
   }
   handleSubmit(value) {
-    const id = Math.floor(Math.random() * 10000 + 1);
+    this.toggle();
+
     const newStaff = {
-      id: id,
       name: value.name,
       doB: this.state.doB,
       salaryScale: value.salaryScale ? value.salaryScale : 1,
       startDate: this.state.startDate,
-      department: value.department ? value.department : "Sale",
+      departmentId: value.department ? value.department : "Dept01",
       annualLeave: value.annualLeave ? value.annualLeave : 0,
       overTime: value.overTime ? value.overTime : 0,
       image: "/assets/images/alberto.png",
+      salary: 3000,
     };
     if (!this.state.doB || !this.state.startDate) {
       this.setState({ touched: { doB: true, startDate: true } });
     } else {
-      // localStorage.setItem(
-      //   "StaffList",
-      //   JSON.stringify([newStaff, ...this.props.staffs])
-      // );
-      this.props.addStaff(newStaff);
+      this.props.addStaff(
+        newStaff.name,
+        newStaff.doB,
+        newStaff.salaryScale,
+        newStaff.departmentId,
+        newStaff.startDate,
+        newStaff.annualLeave,
+        newStaff.overTime,
+        newStaff.images,
+        newStaff.salary
+      );
     }
   }
   search(event) {
@@ -264,11 +271,11 @@ class Staffs extends Component {
                               id="department"
                               className="form-control"
                             >
-                              <option>Sale</option>
-                              <option>HR</option>
-                              <option>Marketing</option>
-                              <option>IT</option>
-                              <option>Finance</option>
+                              <option value="Dept01">Sale</option>
+                              <option value="Dept02">HR</option>
+                              <option value="Dept03">Marketing</option>
+                              <option value="Dept04">IT</option>
+                              <option value="Dept05">Finance</option>
                             </Control.select>
                           </Col>
                         </Row>
