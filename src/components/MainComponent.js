@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import StaffsComponent from "./StaffListComponent";
 import StaffDetail from "./StaffDetailComponent";
 // import { STAFFS, DEPARTMENTS } from "../shared/staffs";
+import StaffOfDepartmentComponent from "./StaffOfDepartmentComponent";
 import Header from "./HeaderComponent";
 import Footer from "./FooterComponent";
 import DepartmentComponent from "./DepartmentComponent";
@@ -12,6 +13,7 @@ import {
   fetchStaffs,
   fetchDepartments,
   fetchSalary,
+  fetchStaffsOfDepartment,
 } from "../redux/ActionCreators";
 
 const mapStateToProps = (state) => ({
@@ -23,21 +25,17 @@ const mapDispatchToProps = (dispatch) => ({
   fetchStaffs: () => dispatch(fetchStaffs()),
   fetchDepartments: () => dispatch(fetchDepartments()),
   fetchSalary: () => dispatch(fetchSalary()),
+  fetchStaffsOfDepartment: (departmentId) =>
+    dispatch(fetchStaffsOfDepartment(departmentId)),
 });
 class Main extends Component {
   constructor(props) {
     super(props);
-    this.state = {
-      // staffs: JSON.parse(localStorage.getItem("StaffList"))
-      //   ? JSON.parse(localStorage.getItem("StaffList"))
-      //   : STAFFS,
-      // department: DEPARTMENTS,
-    };
+    this.state = {};
     this.addStaff = this.addStaff.bind(this);
   }
   addStaff(staff) {
     console.log(staff);
-    // this.setState({ staffs: [staff, ...this.props.staffs] });
   }
   componentDidMount() {
     this.props.fetchStaffs();
@@ -45,8 +43,20 @@ class Main extends Component {
     this.props.fetchSalary();
   }
   render() {
+    const RenderStaffOfDepartment = ({ match }) => {
+      return (
+        <StaffOfDepartmentComponent
+          departmentsId={match.params.id}
+          staffOfDepartment={this.props.fetchStaffsOfDepartment(
+            match.params.id
+          )}
+          staff={this.props.staffs.staffs.filter(
+            (staff) => staff.departmentId === parseInt(match.params.id, 10)
+          )}
+        />
+      );
+    };
     const RenderStaffDetails = ({ match }) => {
-      console.log(this.props.staffs.staffs);
       return (
         <StaffDetail
           staff={
@@ -75,6 +85,7 @@ class Main extends Component {
             )}
           />
           <Route path="/staff/:id" component={RenderStaffDetails} />
+          <Route path="/departments/:id" component={RenderStaffOfDepartment} />
           <Route
             path="/departments"
             component={() => (

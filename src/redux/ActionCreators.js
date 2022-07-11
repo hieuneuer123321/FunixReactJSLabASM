@@ -115,3 +115,38 @@ export const fetchSalary = () => (dispatch) => {
       return dispatch(salaryFailed(err.message));
     });
 };
+////////////////////////////////
+export const staffsOfDepartmentLoading = () => ({
+  type: ActionTypes.STAFFSOFDEPARTMENTS_LOADING,
+});
+export const addStaffsOfDepartment = (staffSOfDepartment) => ({
+  type: ActionTypes.ADD_STAFFSOFDEPARTMENTS,
+  payload: staffSOfDepartment,
+});
+export const staffsOfDepartmentFailed = (errorMessage) => ({
+  type: ActionTypes.STAFFSOFDEPARTMENTS_FAILED,
+  payload: errorMessage,
+});
+export const fetchStaffsOfDepartment = (departmentId) => (dispatch) => {
+  dispatch(staffsOfDepartmentLoading(true));
+  return fetch(baseUrl + "departments/" + departmentId)
+    .then(
+      (response) => {
+        if (response.ok) return response;
+        else {
+          const errorMessage = new Error(
+            `Error ${response.status} : ${response.statusText}`
+          );
+          errorMessage.response = response;
+          throw errorMessage;
+        }
+      },
+      (err) => {
+        const errorMessage = new Error(err.message);
+        throw errorMessage;
+      }
+    )
+    .then((response) => response.json())
+    .then((data) => dispatch(addStaffsOfDepartment(data)))
+    .catch((err) => dispatch(staffsOfDepartmentFailed(err.message)));
+};

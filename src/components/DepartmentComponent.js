@@ -1,5 +1,6 @@
 import React from "react";
 import { Card, CardTitle, CardText, CardBody } from "reactstrap";
+import { Link } from "react-router-dom";
 import LoadingComponent from "./LoadingComponent";
 
 function RenderDepartment({ departmentList }) {
@@ -10,10 +11,12 @@ function RenderDepartment({ departmentList }) {
   return departmentList.map((department) => (
     <div className="col-12 col-md-6 col-xl-4">
       <Card style={styleCard}>
-        <CardBody>
-          <CardTitle>{department.name}</CardTitle>
-          <CardText>Số Lượng Nhân Viên: {department.numberOfStaff}</CardText>
-        </CardBody>
+        <Link to={`/departments/${department.id}`}>
+          <CardBody>
+            <CardTitle>{department.name}</CardTitle>
+            <CardText>Số Lượng Nhân Viên: {department.numberOfStaff}</CardText>
+          </CardBody>
+        </Link>
       </Card>
     </div>
   ));

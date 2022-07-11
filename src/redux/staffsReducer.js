@@ -33,6 +33,29 @@ export const Staffs = (
         staffs: [],
       };
     }
+    case ActionTypes.STAFFSOFDEPARTMENTS_LOADING: {
+      return {
+        ...state,
+        isLoading: true,
+        errorMessage: null,
+        staffs: [],
+      };
+    }
+    case ActionTypes.STAFFSOFDEPARTMENTS_FAILED: {
+      return {
+        ...state,
+        isLoading: false,
+        errorMessage: action.payload,
+      };
+    }
+    case ActionTypes.ADD_STAFFSOFDEPARTMENTS: {
+      return {
+        ...state,
+        isLoading: false,
+        errorMessage: null,
+        staffs: action.payload,
+      };
+    }
     default:
       return state;
   }
