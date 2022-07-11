@@ -23,7 +23,6 @@ function RenderDepartment({ departmentList }) {
 }
 
 export default function DepartmentComponent(props) {
-  console.log(props);
   if (props.isLoading) {
     return <LoadingComponent />;
   } else if (props.errorMessage) {

@@ -212,3 +212,32 @@ export const postAddStaff =
       })
       .catch((error) => dispatch(staffsFailed(error.message)));
   };
+////////////////////////////////
+
+export const deleteStaffSucceeded = (staff) => ({
+  type: ActionTypes.DELETE_STAFF,
+  payload: staff,
+});
+export const deleteStaff = (id) => (dispatch) => {
+  return fetch(baseUrl + "staffs/" + id, {
+    method: "DELETE",
+  })
+    .then(
+      (response) => {
+        if (response.ok) return response;
+        else {
+          const errorMessage = new Error(
+            `Error ${response.status} : ${response.statusText}`
+          );
+          throw errorMessage;
+        }
+      },
+      (err) => {
+        const errorMessage = new Error(err.message);
+        throw errorMessage;
+      }
+    )
+    .then((response) => response.json())
+    .then((data) => dispatch(deleteStaffSucceeded(data)))
+    .catch((err) => dispatch(staffsFailed(err.message)));
+};

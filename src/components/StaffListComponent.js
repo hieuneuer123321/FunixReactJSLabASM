@@ -40,6 +40,7 @@ class Staffs extends Component {
     this.handleInputChange = this.handleInputChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
     this.handleBlur = this.handleBlur.bind(this);
+    this.onDeleteStaff = this.onDeleteStaff.bind(this);
   }
 
   handleBlur = (field) => (event) => {
@@ -56,7 +57,6 @@ class Staffs extends Component {
   }
   handleSubmit(value) {
     this.toggle();
-
     const newStaff = {
       name: value.name,
       doB: this.state.doB,
@@ -108,7 +108,9 @@ class Staffs extends Component {
     }
     return errors;
   }
-
+  onDeleteStaff(id) {
+    this.props.deleteStaff(id);
+  }
   render() {
     if (this.props.isLoading) {
       return <LoadingComponent />;
@@ -116,7 +118,7 @@ class Staffs extends Component {
       return <h4>{this.props.errorMessage}</h4>;
     } else {
       const errors = this.validate(this.state.doB, this.state.startDate);
-      const RenderStaff = ({ staff, onClick }) => {
+      const RenderStaff = ({ staff, deleteStaff }) => {
         const styleTextCard = {
           textAlign: "center",
           color: "black",
@@ -130,6 +132,13 @@ class Staffs extends Component {
               <CardImg width="100%" src={staff.image} alt={staff.name} />
               <h6 style={styleTextCard}>{staff.name}</h6>
             </Link>
+            <button
+              className="btn btn-danger"
+              outline
+              onClick={() => this.onDeleteStaff(staff.id)}
+            >
+              Delete
+            </button>
           </Card>
         );
       };
@@ -145,7 +154,7 @@ class Staffs extends Component {
         .map((staff) => {
           return (
             <div className="col-6 col-md-4 col-xl-2" key={staff.id}>
-              <RenderStaff staff={staff} onClick={this.props.onClick} />
+              <RenderStaff staff={staff} deleteStaff={this.props.deleteStaff} />
             </div>
           );
         });

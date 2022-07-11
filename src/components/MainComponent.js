@@ -15,6 +15,7 @@ import {
   fetchSalary,
   fetchStaffsOfDepartment,
   postAddStaff,
+  deleteStaff,
 } from "../redux/ActionCreators";
 
 const mapStateToProps = (state) => ({
@@ -28,6 +29,7 @@ const mapDispatchToProps = (dispatch) => ({
   fetchSalary: () => dispatch(fetchSalary()),
   fetchStaffsOfDepartment: (departmentId) =>
     dispatch(fetchStaffsOfDepartment(departmentId)),
+  deleteStaff: (id) => dispatch(deleteStaff(id)),
   postAddStaff: (
     name,
     doB,
@@ -103,6 +105,7 @@ class Main extends Component {
                 staffs={this.props.staffs.staffs}
                 isLoading={this.props.staffs.isLoading}
                 errorMessage={this.props.staffs.errorMessage}
+                deleteStaff={this.props.deleteStaff}
               />
             )}
           />

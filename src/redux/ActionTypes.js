@@ -15,10 +15,8 @@ export const SALARY_FAILED = "SALARY_FAILED";
 export const ADD_SALARY = "ADD_SALARY";
 ////////////////////////////////
 export const ADD_STAFF = "ADD_STAFF";
-export const ADD_STAFF_FAILED = "ADD_STAFF_FAILED";
+
 ////////////////////////////////
 export const UPDATE_STAFF = "UPDATE_STAFF";
-export const UPDATE_STAFF_FAILED = "UPDATE_STAFF_FAILED";
 ////////////////////////////////
 export const DELETE_STAFF = "DELETE_STAFF";
-export const DELETE_STAFF_FAILED = "DELETE_STAFF_FAILED";

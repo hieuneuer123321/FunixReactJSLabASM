@@ -62,6 +62,16 @@ export const Staffs = (
         staffs: state.staffs.concat(action.payload),
       };
     }
+    case ActionTypes.DELETE_STAFF: {
+      const filterStaffs = state.staffs.filter((staff) => {
+        return staff.id !== action.payload;
+      });
+      return {
+        ...state,
+        isLoading: false,
+        staffs: filterStaffs,
+      };
+    }
     default:
       return state;
   }
