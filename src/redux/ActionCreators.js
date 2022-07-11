@@ -128,6 +128,7 @@ export const staffsOfDepartmentFailed = (errorMessage) => ({
   payload: errorMessage,
 });
 export const fetchStaffsOfDepartment = (departmentId) => (dispatch) => {
+  console.log(departmentId);
   dispatch(staffsOfDepartmentLoading(true));
   return fetch(baseUrl + "departments/" + departmentId)
     .then(
@@ -147,6 +148,9 @@ export const fetchStaffsOfDepartment = (departmentId) => (dispatch) => {
       }
     )
     .then((response) => response.json())
-    .then((data) => dispatch(addStaffsOfDepartment(data)))
+    .then((data) => {
+      console.log(data);
+      return dispatch(addStaffsOfDepartment(data));
+    })
     .catch((err) => dispatch(staffsOfDepartmentFailed(err.message)));
 };

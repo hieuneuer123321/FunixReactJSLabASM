@@ -31,7 +31,7 @@ const mapDispatchToProps = (dispatch) => ({
 class Main extends Component {
   constructor(props) {
     super(props);
-    this.state = {};
+    this.state = { departmentsId: "Dept03" };
     this.addStaff = this.addStaff.bind(this);
   }
   addStaff(staff) {
@@ -47,7 +47,12 @@ class Main extends Component {
       return (
         <StaffOfDepartmentComponent
           departmentsId={match.params.id}
-          staffOfDepartment={this.props.fetchStaffsOfDepartment}
+          departmentsName={
+            this.props.departments.departments.filter(
+              (department) => department.id === match.params.id
+            )[0]
+          }
+          // staffOfDepartment={this.props.fetchStaffsOfDepartment}
         />
       );
     };
@@ -61,6 +66,7 @@ class Main extends Component {
           }
           isLoading={this.props.staffs.isLoading}
           errorMessage={this.props.staffs.errorMessage}
+          departments={this.props.departments.departments}
         />
       );
     };
