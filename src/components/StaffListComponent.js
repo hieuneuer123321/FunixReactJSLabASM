@@ -55,6 +55,7 @@ class Staffs extends Component {
       [name]: value,
     });
   }
+
   handleSubmit(value) {
     this.toggle();
     const newStaff = {
@@ -100,16 +101,22 @@ class Staffs extends Component {
       doB: "",
       startDate: "",
     };
-    if (this.state.touched.doB && doB.length < 1) {
+    if (this.state.touched.doB && doB.length === 0) {
       errors.doB = "Yêu Cầu Nhập";
     }
-    if (this.state.touched.startDate && startDate.length < 1) {
+    if (this.state.touched.startDate && startDate.length === 0) {
       errors.startDate = "Yêu Cầu Nhập";
     }
     return errors;
   }
   onDeleteStaff(id) {
-    this.props.deleteStaff(id);
+    const selectConfirm = window.confirm(
+      "Are you sure you want to delete this"
+    );
+    if (selectConfirm) {
+      this.props.deleteStaff(id);
+    } else {
+    }
   }
   render() {
     if (this.props.isLoading) {
@@ -240,6 +247,7 @@ class Staffs extends Component {
                               onBlur={this.handleBlur("doB")}
                               valid={errors.doB === ""}
                               invalid={errors.doB !== ""}
+                              required
                             />
                             <FormFeedback>{errors.doB}</FormFeedback>
                           </Col>
@@ -263,6 +271,7 @@ class Staffs extends Component {
                               onBlur={this.handleBlur("startDate")}
                               valid={errors.startDate === ""}
                               invalid={errors.startDate !== ""}
+                              required
                             />
                             <FormFeedback>{errors.startDate}</FormFeedback>
                           </Col>

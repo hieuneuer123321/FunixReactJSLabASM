@@ -59,17 +59,14 @@ export const Staffs = (
     case ActionTypes.ADD_STAFF: {
       return {
         ...state,
-        staffs: state.staffs.concat(action.payload),
+        staffs: action.payload,
       };
     }
     case ActionTypes.DELETE_STAFF: {
-      const filterStaffs = state.staffs.filter((staff) => {
-        return staff.id !== action.payload;
-      });
       return {
         ...state,
         isLoading: false,
-        staffs: filterStaffs,
+        staffs: action.payload,
       };
     }
     default:

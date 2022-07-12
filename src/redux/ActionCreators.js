@@ -238,6 +238,9 @@ export const deleteStaff = (id) => (dispatch) => {
       }
     )
     .then((response) => response.json())
-    .then((data) => dispatch(deleteStaffSucceeded(data)))
+    .then((data) => {
+      console.log(data);
+      return dispatch(deleteStaffSucceeded(data));
+    })
     .catch((err) => dispatch(staffsFailed(err.message)));
 };
