@@ -244,3 +244,13 @@ export const deleteStaff = (id) => (dispatch) => {
     })
     .catch((err) => dispatch(staffsFailed(err.message)));
 };
+////////////////////////////////
+export const updateStaffSucceeded = (staff) => ({
+  type: ActionTypes.UPDATE_STAFF,
+  payload: staff,
+});
+export const updateStaff = (id) => (dispatch) => {
+  return fetch(baseUrl + "staffs/" + id, {
+    method: "PATCH",
+  });
+};

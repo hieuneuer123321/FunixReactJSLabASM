@@ -52,24 +52,50 @@ class StaffDetail extends Component {
       [name]: value,
     });
   }
-  handleSubmit(value) {
-    console.log(value.name);
-    const newStaff = {
-      name: value.name,
-      doB: this.state.doB,
-      salaryScale: value.salaryScale ? value.salaryScale : 1,
-      startDate: this.state.startDate,
-      departmentId: value.department ? value.department : "Dept01",
-      annualLeave: value.annualLeave ? value.annualLeave : 0,
-      overTime: value.overTime ? value.overTime : 0,
-      image: "/assets/images/alberto.png",
-      salary: 3000,
-    };
-    console.log(newStaff);
 
+  handleSubmit(value) {
+    // const newStaff = {
+    //   name: value.name,
+    //   doB: this.state.doB,
+    //   salaryScale: value.salaryScale ? value.salaryScale : 1,
+    //   startDate: this.state.startDate,
+    //   departmentId: this.state.department ? this.state.department : "Dept01",
+    //   annualLeave: value.annualLeave ? value.annualLeave : 0,
+    //   overTime: value.overTime ? value.overTime : 0,
+    //   image: "/assets/images/alberto.png",
+    //   salary: 3000,
+    // };
+    const staffUpdate = {}; /// chỉ lấy chứa những field người dùng thay đổi
+    if (this.props.staff.name !== value.name) staffUpdate.name = value.name;
+    if (
+      this.props.staff.doB !== this.state.doB
+        ? this.state.doB
+        : this.props.staff.doB
+    )
+      staffUpdate.doB = this.state.doB;
+    if (this.props.staff.salaryScale !== value.salaryScale)
+      staffUpdate.salaryScale = value.salaryScale ? value.salaryScale : 1;
+    if (
+      this.props.staff.startDate !== this.state.startDate
+        ? this.state.startDate
+        : this.props.staff.startDate
+    )
+      staffUpdate.startDate = this.state.startDate;
+    if (
+      this.props.staff.departmentId !== this.state.department
+        ? this.state.department
+        : this.props.staff.departmentId
+    )
+      staffUpdate.departmentId = this.state.department
+        ? this.state.department
+        : "Dept01";
+    if (this.props.staff.annualLeave !== value.annualLeave)
+      staffUpdate.annualLeave = value.annualLeave ? value.annualLeave : 0;
+    if (this.props.staff.overTime !== value.overTime)
+      staffUpdate.overTime = value.overTime ? value.overTime : 0;
+    console.log(staffUpdate);
     this.toggle();
   }
-
   toggle() {
     this.setState({
       modal: !this.state.modal,
