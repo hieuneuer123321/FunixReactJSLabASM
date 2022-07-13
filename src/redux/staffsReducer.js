@@ -56,19 +56,7 @@ export const Staffs = (
         staffs: action.payload,
       };
     }
-    case ActionTypes.ADD_STAFF: {
-      return {
-        ...state,
-        staffs: action.payload,
-      };
-    }
-    case ActionTypes.DELETE_STAFF: {
-      return {
-        ...state,
-        isLoading: false,
-        staffs: action.payload,
-      };
-    }
+
     default:
       return state;
   }

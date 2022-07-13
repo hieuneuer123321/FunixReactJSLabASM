@@ -14,9 +14,3 @@ export const SALARY_LOADING = "SALARY_LOADING";
 export const SALARY_FAILED = "SALARY_FAILED";
 export const ADD_SALARY = "ADD_SALARY";
 ////////////////////////////////
-export const ADD_STAFF = "ADD_STAFF";
-
-////////////////////////////////
-export const UPDATE_STAFF = "UPDATE_STAFF";
-////////////////////////////////
-export const DELETE_STAFF = "DELETE_STAFF";

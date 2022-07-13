@@ -41,7 +41,6 @@ class Staffs extends Component {
     this.handleInputChange = this.handleInputChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
     this.handleBlur = this.handleBlur.bind(this);
-    this.onDeleteStaff = this.onDeleteStaff.bind(this);
   }
 
   handleBlur = (field) => (event) => {
@@ -74,17 +73,6 @@ class Staffs extends Component {
       this.setState({ touched: { doB: true, startDate: true } });
     } else {
       console.log(newStaff);
-      this.props.postAddStaff(
-        newStaff.name,
-        newStaff.doB,
-        newStaff.salaryScale,
-        newStaff.departmentId,
-        newStaff.startDate,
-        newStaff.annualLeave,
-        newStaff.overTime,
-        newStaff.image,
-        newStaff.salary
-      );
     }
   }
   search(event) {
@@ -110,15 +98,7 @@ class Staffs extends Component {
     }
     return errors;
   }
-  onDeleteStaff(id) {
-    const selectConfirm = window.confirm(
-      "Are you sure you want to delete this"
-    );
-    if (selectConfirm) {
-      this.props.deleteStaff(id);
-    } else {
-    }
-  }
+
   render() {
     if (this.props.isLoading) {
       return <LoadingComponent />;
@@ -126,7 +106,7 @@ class Staffs extends Component {
       return <h4>{this.props.errorMessage}</h4>;
     } else {
       const errors = this.validate(this.state.doB, this.state.startDate);
-      const RenderStaff = ({ staff, deleteStaff }) => {
+      const RenderStaff = ({ staff }) => {
         const styleTextCard = {
           textAlign: "center",
           color: "black",
@@ -135,26 +115,12 @@ class Staffs extends Component {
           marginBottom: "10px",
         };
         return (
-          <FadeTransform
-            in
-            transformProps={{
-              exitTransform: "scale(0.5) translateY(-50%)",
-            }}
-          >
-            <Card style={styleCard}>
-              <Link to={`/staff/${staff.id}`}>
-                <CardImg width="100%" src={staff.image} alt={staff.name} />
-                <h6 style={styleTextCard}>{staff.name}</h6>
-              </Link>
-              <button
-                className="btn btn-danger"
-                outline
-                onClick={() => this.onDeleteStaff(staff.id)}
-              >
-                Delete
-              </button>
-            </Card>
-          </FadeTransform>
+          <Card style={styleCard}>
+            <Link to={`/staff/${staff.id}`}>
+              <CardImg width="100%" src={staff.image} alt={staff.name} />
+              <h6 style={styleTextCard}>{staff.name}</h6>
+            </Link>
+          </Card>
         );
       };
       const staffList = this.props.staffs
@@ -169,7 +135,7 @@ class Staffs extends Component {
         .map((staff) => {
           return (
             <div className="col-6 col-md-4 col-xl-2" key={staff.id}>
-              <RenderStaff staff={staff} deleteStaff={this.props.deleteStaff} />
+              <RenderStaff staff={staff} />
             </div>
           );
         });
@@ -407,8 +373,15 @@ class Staffs extends Component {
                 </div>
               </form>
             </div>
-          </div>
-          <div className="row">{staffList}</div>
+          </div>{" "}
+          <FadeTransform
+            in
+            transformProps={{
+              exitTransform: "scale(0.5) translateY(-50%)",
+            }}
+          >
+            <div className="row">{staffList}</div>
+          </FadeTransform>
         </div>
       );
     }
