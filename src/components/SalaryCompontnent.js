@@ -6,6 +6,7 @@ import {
   DropdownMenu,
   DropdownItem,
 } from "reactstrap";
+import { FadeTransform } from "react-animation-components";
 import LoadingComponent from "./LoadingComponent";
 
 // Hàm render các bẳng lương nhân viên dựa vào đối tượng đc truyền vào
@@ -31,21 +32,28 @@ const RenderSalary = ({ salary, isLoading, errorMessage }) => {
   } else {
     return salary.map((salary) => (
       <div className="col-12 col-md-6 col-xl-4">
-        <Card style={styleCard}>
-          <CardBody>
-            <CardTitle style={styleCardTitle}>{salary.name}</CardTitle>
-            <CardText>Mã Nhân Viên: {salary.id}</CardText>
-            <CardText>Hệ Số Lương: {salary.salaryScale}</CardText>
-            <CardText>Số Ngày Làm Thêm: {salary.overTime}</CardText>
-            <CardText>
-              Lương:{" "}
-              {formatter.format(
-                salary.salaryScale * 3000000 + salary.overTime * 200000
-              )}{" "}
-              VNĐ
-            </CardText>
-          </CardBody>
-        </Card>
+        <FadeTransform
+          in
+          transformProps={{
+            exitTransform: "scale(0.5) translateY(-50%)",
+          }}
+        >
+          <Card style={styleCard}>
+            <CardBody>
+              <CardTitle style={styleCardTitle}>{salary.name}</CardTitle>
+              <CardText>Mã Nhân Viên: {salary.id}</CardText>
+              <CardText>Hệ Số Lương: {salary.salaryScale}</CardText>
+              <CardText>Số Ngày Làm Thêm: {salary.overTime}</CardText>
+              <CardText>
+                Lương:{" "}
+                {formatter.format(
+                  salary.salaryScale * 3000000 + salary.overTime * 200000
+                )}{" "}
+                VNĐ
+              </CardText>
+            </CardBody>
+          </Card>
+        </FadeTransform>
       </div>
     ));
   }

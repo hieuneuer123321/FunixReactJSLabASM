@@ -9,6 +9,7 @@ import DepartmentComponent from "./DepartmentComponent";
 import SalaryCompontnent from "./SalaryCompontnent";
 import { Switch, Route, Redirect, withRouter } from "react-router-dom";
 import { connect } from "react-redux";
+// import { TransitionGroup, CSSTransition } from "react-transition-group";
 import {
   fetchStaffs,
   fetchDepartments,
@@ -96,6 +97,12 @@ class Main extends Component {
     return (
       <div>
         <Header />
+        {/* <TransitionGroup>
+          <CSSTransition
+            key={this.props.location.key}
+            classNames="page"
+            timeout={300}
+          > */}
         <Switch>
           <Route
             path="/staffs"
@@ -133,6 +140,8 @@ class Main extends Component {
           />
           <Redirect to="/staffs" />
         </Switch>
+        {/* </CSSTransition>
+        </TransitionGroup> */}
         <Footer />
       </div>
     );

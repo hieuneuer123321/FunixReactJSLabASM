@@ -13,6 +13,7 @@ import {
   Button,
 } from "reactstrap";
 import { Control, Errors, LocalForm } from "react-redux-form";
+import { FadeTransform } from "react-animation-components";
 import { Link } from "react-router-dom";
 import LoadingComponent from "./LoadingComponent";
 
@@ -134,19 +135,26 @@ class Staffs extends Component {
           marginBottom: "10px",
         };
         return (
-          <Card style={styleCard}>
-            <Link to={`/staff/${staff.id}`}>
-              <CardImg width="100%" src={staff.image} alt={staff.name} />
-              <h6 style={styleTextCard}>{staff.name}</h6>
-            </Link>
-            <button
-              className="btn btn-danger"
-              outline
-              onClick={() => this.onDeleteStaff(staff.id)}
-            >
-              Delete
-            </button>
-          </Card>
+          <FadeTransform
+            in
+            transformProps={{
+              exitTransform: "scale(0.5) translateY(-50%)",
+            }}
+          >
+            <Card style={styleCard}>
+              <Link to={`/staff/${staff.id}`}>
+                <CardImg width="100%" src={staff.image} alt={staff.name} />
+                <h6 style={styleTextCard}>{staff.name}</h6>
+              </Link>
+              <button
+                className="btn btn-danger"
+                outline
+                onClick={() => this.onDeleteStaff(staff.id)}
+              >
+                Delete
+              </button>
+            </Card>
+          </FadeTransform>
         );
       };
       const staffList = this.props.staffs
