@@ -11,7 +11,6 @@ import {
   Input,
   Row,
   Col,
-  FormFeedback,
   Button,
 } from "reactstrap";
 import { Control, Errors, LocalForm } from "react-redux-form";
@@ -27,6 +26,7 @@ class StaffDetail extends Component {
   constructor(props) {
     super(props);
     this.state = {
+      department: "",
       doB: "",
       startDate: "",
       salary: 30000,
@@ -44,7 +44,6 @@ class StaffDetail extends Component {
   handleBlur = (field) => (event) => {
     this.setState({ touched: { ...this.state.touched, [field]: true } });
   };
-
   handleInputChange(event) {
     const target = event.target;
     const value = target.value;
@@ -53,9 +52,8 @@ class StaffDetail extends Component {
       [name]: value,
     });
   }
-
   handleSubmit(value) {
-    this.toggle();
+    console.log(value.name);
     const newStaff = {
       name: value.name,
       doB: this.state.doB,
@@ -67,11 +65,9 @@ class StaffDetail extends Component {
       image: "/assets/images/alberto.png",
       salary: 3000,
     };
-    if (!this.state.doB || !this.state.startDate) {
-      this.setState({ touched: { doB: true, startDate: true } });
-    } else {
-      console.log(newStaff);
-    }
+    console.log(newStaff);
+
+    this.toggle();
   }
 
   toggle() {
@@ -79,28 +75,12 @@ class StaffDetail extends Component {
       modal: !this.state.modal,
     });
   }
-  validate(doB, startDate) {
-    const errors = {
-      doB: "",
-      startDate: "",
-    };
-    if (this.state.touched.doB && doB.length === 0) {
-      errors.doB = "Yêu Cầu Nhập";
-    }
-    if (this.state.touched.startDate && startDate.length === 0) {
-      errors.startDate = "Yêu Cầu Nhập";
-    }
-    return errors;
-  }
-
   render() {
     if (this.props.isLoading) {
       return <LoadingComponent />;
     } else if (this.props.errorMessage) {
       return <h4>{this.props.errorMessage}</h4>;
     } else {
-      const errors = this.validate(this.state.doB, this.state.startDate);
-      console.log(this.props.staff);
       const department = this.props.departments.filter((department) => {
         return this.props.staff.departmentId === department.id;
       })[0];
@@ -152,8 +132,8 @@ class StaffDetail extends Component {
                         maxLength: lengthMax(30),
                         minLength: lengthMin(3),
                       }}
+                      defaultValue={this.props.staff.name}
                     />
-
                     <Errors
                       model=".name"
                       className="text-danger"
@@ -178,13 +158,17 @@ class StaffDetail extends Component {
                       placeholder="date placeholder"
                       className="form-control"
                       onChange={this.handleInputChange}
-                      value={this.props.staff.doB}
                       onBlur={this.handleBlur("doB")}
-                      valid={errors.doB === ""}
-                      invalid={errors.doB !== ""}
+                      value={
+                        this.state.doB
+                          ? this.state.doB
+                          : dateFormat(
+                              this.props.staff.doB,
+                              "yyyy-mm-dd"
+                            ).toString()
+                      }
                       required
                     />
-                    <FormFeedback>{errors.doB}</FormFeedback>
                   </Col>
                 </Row>
                 <Row className="control-group" style={{ marginBottom: "20px" }}>
@@ -199,13 +183,17 @@ class StaffDetail extends Component {
                       placeholder="date placeholder"
                       className="form-control"
                       onChange={this.handleInputChange}
-                      value={this.state.startDate}
                       onBlur={this.handleBlur("startDate")}
-                      valid={errors.startDate === ""}
-                      invalid={errors.startDate !== ""}
+                      value={
+                        this.state.startDate
+                          ? this.state.startDate
+                          : dateFormat(
+                              this.props.staff.startDate,
+                              "yyyy-mm-dd"
+                            ).toString()
+                      }
                       required
                     />
-                    <FormFeedback>{errors.startDate}</FormFeedback>
                   </Col>
                 </Row>
                 <Row className="control-group" style={{ marginBottom: "20px" }}>
@@ -213,18 +201,25 @@ class StaffDetail extends Component {
                     Phòng Ban
                   </Label>
                   <Col md={8}>
-                    <Control.select
-                      model=".department"
+                    <Input
+                      type="select"
                       name="department"
                       id="department"
                       className="form-control"
+                      onChange={this.handleInputChange}
+                      value={
+                        this.state.department
+                          ? this.state.department
+                          : this.props.staff.departmentId
+                      }
+                      onBlur={this.handleBlur("department")}
                     >
                       <option value="Dept01">Sale</option>
                       <option value="Dept02">HR</option>
                       <option value="Dept03">Marketing</option>
                       <option value="Dept04">IT</option>
                       <option value="Dept05">Finance</option>
-                    </Control.select>
+                    </Input>
                   </Col>
                 </Row>
                 <Row className="control-group" style={{ marginBottom: "20px" }}>
@@ -239,6 +234,7 @@ class StaffDetail extends Component {
                       className="form-control"
                       placeholder="1"
                       validators={{ isNumber }}
+                      defaultValue={this.props.staff.salaryScale}
                     />
                     <Errors
                       model=".salaryScale"
@@ -261,6 +257,7 @@ class StaffDetail extends Component {
                       id="annualLeave"
                       className="form-control"
                       placeholder="0"
+                      defaultValue={this.props.staff.annualLeave}
                       validators={{ isNumber }}
                     />
                     <Errors
@@ -282,6 +279,7 @@ class StaffDetail extends Component {
                       id="overTime"
                       className="form-control"
                       placeholder="0"
+                      defaultValue={this.props.staff.overTime}
                       validators={{ isNumber }}
                     />
                     <Errors
