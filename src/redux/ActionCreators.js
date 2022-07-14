@@ -249,8 +249,37 @@ export const updateStaffSucceeded = (staff) => ({
   type: ActionTypes.UPDATE_STAFF,
   payload: staff,
 });
-export const updateStaff = (id) => (dispatch) => {
-  return fetch(baseUrl + "staffs/" + id, {
+export const updateStaff = (staff) => (dispatch) => {
+  return fetch(baseUrl + "staffs", {
     method: "PATCH",
-  });
+    body: JSON.stringify(staff),
+    headers: { "Content-Type": "application/json" },
+    credentials: "same-origin",
+  })
+    .then(
+      (response) => {
+        if (response.ok) {
+          return response;
+        } else {
+          const errorMessage = new Error(
+            `Error ${response.status} : ${response.statusText}`
+          );
+          throw errorMessage;
+        }
+      },
+      (err) => {
+        const errorMessage = new Error(err.message);
+        throw errorMessage;
+      }
+    )
+    .then(function (response) {
+      return response.json();
+    })
+    .then((data) => {
+      console.log(data);
+      return dispatch(updateStaffSucceeded(data));
+    })
+    .catch((error) => {
+      return dispatch(staffsFailed(error.message));
+    });
 };

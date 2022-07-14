@@ -17,6 +17,7 @@ import {
   fetchStaffsOfDepartment,
   postAddStaff,
   deleteStaff,
+  updateStaff,
 } from "../redux/ActionCreators";
 
 const mapStateToProps = (state) => ({
@@ -31,6 +32,7 @@ const mapDispatchToProps = (dispatch) => ({
   fetchStaffsOfDepartment: (departmentId) =>
     dispatch(fetchStaffsOfDepartment(departmentId)),
   deleteStaff: (id) => dispatch(deleteStaff(id)),
+  updateStaff: (staff) => dispatch(updateStaff(staff)),
   postAddStaff: (
     name,
     doB,
@@ -91,6 +93,7 @@ class Main extends Component {
           isLoading={this.props.staffs.isLoading}
           errorMessage={this.props.staffs.errorMessage}
           departments={this.props.departments.departments}
+          onUpdateStaff={this.props.updateStaff}
         />
       );
     };

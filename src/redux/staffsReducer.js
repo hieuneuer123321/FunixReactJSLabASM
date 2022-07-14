@@ -69,6 +69,9 @@ export const Staffs = (
         staffs: action.payload,
       };
     }
+    case ActionTypes.UPDATE_STAFF: {
+      return { ...state, isLoading: false, staffs: action.payload };
+    }
     default:
       return state;
   }

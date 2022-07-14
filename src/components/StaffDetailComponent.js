@@ -41,6 +41,7 @@ class StaffDetail extends Component {
     this.handleSubmit = this.handleSubmit.bind(this);
     this.handleBlur = this.handleBlur.bind(this);
   }
+
   handleBlur = (field) => (event) => {
     this.setState({ touched: { ...this.state.touched, [field]: true } });
   };
@@ -53,19 +54,9 @@ class StaffDetail extends Component {
     });
   }
 
-  handleSubmit(value) {
-    // const newStaff = {
-    //   name: value.name,
-    //   doB: this.state.doB,
-    //   salaryScale: value.salaryScale ? value.salaryScale : 1,
-    //   startDate: this.state.startDate,
-    //   departmentId: this.state.department ? this.state.department : "Dept01",
-    //   annualLeave: value.annualLeave ? value.annualLeave : 0,
-    //   overTime: value.overTime ? value.overTime : 0,
-    //   image: "/assets/images/alberto.png",
-    //   salary: 3000,
-    // };
+  handleSubmit(value, id) {
     const staffUpdate = {}; /// chỉ lấy chứa những field người dùng thay đổi
+    staffUpdate.id = id; // Lấy Id mã nhân viên truyền vào
     if (this.props.staff.name !== value.name) staffUpdate.name = value.name;
     if (
       this.props.staff.doB !== this.state.doB
@@ -93,7 +84,10 @@ class StaffDetail extends Component {
       staffUpdate.annualLeave = value.annualLeave ? value.annualLeave : 0;
     if (this.props.staff.overTime !== value.overTime)
       staffUpdate.overTime = value.overTime ? value.overTime : 0;
-    console.log(staffUpdate);
+    if (window.confirm("Bạn Có Muốn Thay Đổi Thông Tin Nhân Viên")) {
+      this.props.onUpdateStaff(staffUpdate);
+    } else {
+    }
     this.toggle();
   }
   toggle() {
@@ -140,7 +134,9 @@ class StaffDetail extends Component {
             <ModalBody>
               <LocalForm
                 className="form-group-row"
-                onSubmit={(values) => this.handleSubmit(values)}
+                onSubmit={(values) =>
+                  this.handleSubmit(values, this.props.staff.id)
+                }
               >
                 <Row className="control-group" style={{ marginBottom: "20px" }}>
                   <Label htmlFor="name" md={4}>
