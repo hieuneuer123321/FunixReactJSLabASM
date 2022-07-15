@@ -11,10 +11,12 @@ function StaffDetail(props) {
     return <h4>{props.errorMessage}</h4>;
   } else {
     console.log(props.departments);
-    const departmentName = props.departments.filter((department) => {
-      return props.staff.departmentId === department.id;
-    })[0].name;
-
+    const department = this.props.departments.filter((department) => {
+      return this.props.staff.departmentId === department.id;
+    })[0];
+    const departmentName = department
+      ? department.name
+      : this.props.staff.departmentId;
     return (
       <div className="container">
         <div className="row">
@@ -49,7 +51,10 @@ function StaffDetail(props) {
               Ngày Vào Công Ty:{" "}
               {dateFormat(props.staff.startDate, "dd/mm/yyyy")}
             </p>
-            <p> Phòng Ban: {departmentName}</p>
+            <p>
+              Phòng Ban:{" "}
+              {departmentName ? departmentName : this.props.staff.departmentId}
+            </p>
             <p> Số Ngày Nghỉ Còn Lại: {props.staff.annualLeave}</p>
             <p> Số Ngày Đã Làm Thêm: {props.staff.overTime}</p>
           </Media>
