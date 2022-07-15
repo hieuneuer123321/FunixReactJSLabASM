@@ -68,6 +68,7 @@ class Main extends Component {
           isLoading={this.props.staffs.isLoading}
           errorMessage={this.props.staffs.errorMessage}
           departments={this.props.departments.departments}
+          departmentId={match.params.id}
         />
       );
     };

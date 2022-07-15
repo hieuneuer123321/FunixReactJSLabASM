@@ -11,12 +11,12 @@ function StaffDetail(props) {
     return <h4>{props.errorMessage}</h4>;
   } else {
     console.log(props.departments);
-    const department = this.props.departments.filter((department) => {
-      return this.props.staff.departmentId === department.id;
+    const department = props.departments.filter((department) => {
+      return props.staff.departmentId === department.id;
     })[0];
     const departmentName = department
       ? department.name
-      : this.props.staff.departmentId;
+      : props.staff.departmentId;
     return (
       <div className="container">
         <div className="row">
