@@ -1,5 +1,5 @@
 import React from "react";
-import dateFormat from "dateformat";
+// import dateFormat from "dateformat";
 import { Card, CardImg, CardText, CardBody, CardTitle } from "reactstrap";
 
 function RenderDish({ dish }) {
@@ -16,12 +16,18 @@ function RenderDish({ dish }) {
 
 function RenderComments({ comments }) {
   if (comments.length > 0) {
-    const loadComment = comments.map((disher) => {
+    const loadComment = comments.map((comment) => {
       return (
-        <div key={disher.id}>
-          <CardText>{disher.comment}</CardText>
+        <div key={comment.id}>
+          <CardText>{comment.comment}</CardText>
           <CardText>
-            - - {disher.author},{dateFormat(disher.date, " mmmm dS, yyyy")}
+            {/* - - {disher.author},{dateFormat(disher.date, " mmmm dS, yyyy")} */}
+            - - {comment.author},{" "}
+            {new Intl.DateTimeFormat("en-US", {
+              year: "numeric",
+              month: "short",
+              day: "2-digit",
+            }).format(new Date(Date.parse(comment.date)))}
           </CardText>
           <br />
         </div>
